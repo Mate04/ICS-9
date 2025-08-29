@@ -46,7 +46,4 @@ Profesores adjuntos:
     └── <<Nombre de la imagen>>.(png|jpg|jpeg)
 ```
 
-| Item de configuracion      | Tipo | Nombre de archivo | Ubicacion |
-| -------------------- | ------ | ------ | ------ |
-## Plan de gestion de configuracion
-
+![Diagrama del sistema](./image.png)
