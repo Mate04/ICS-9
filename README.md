@@ -104,6 +104,6 @@
 
 
 ## Linea Base
-La actualización de la línea base se realiza al concluir cada instancia de examen parcial, garantizando así la integridad y trazabilidad de los entregables del proyecto.
+La linea base inicial se hará cuando todos los integrantes del grupos hayan hecho un commit. La actualización de la línea base se realiza al concluir cada instancia de examen parcial, garantizando así la integridad y trazabilidad de los entregables del proyecto.
 
 
