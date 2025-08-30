@@ -29,14 +29,15 @@
 ```php-template
 /ICS-9
 ├── Readme.md
-├── Programa.pdf
-├── Cronograma.pdf
+├── Planificación Ingeniería y Calidad de Software.pdf
+├── Cronograma.xlsx
 ├── Bibliografía/
 │   └── <<Nombre del autor>> - <<Título del libro>>.pdf
 ├── Teorico/
-│   └── Unidad_<<N>>_<<Nombre_unidad>>/
+│   └── Unidad <<N>> <<Nombre_unidad>>/
+        ├── Contenido unidad.md
 │       ├── Filminas/
-│       │   └── <<Título de la filmina>>.pdf
+│       │   └── <<N>> <<Título de la filmina>>.pdf
 │       ├── Notas de clase/
 │       │   └── <<Apellido creador>>/
 │       │       └── <<nombre del tema>> - <<DD-MM-YYYY>>.<<ext>>
@@ -66,7 +67,7 @@
 | Ítem de configuración | Regla de nombrado                                      | Ubicación                                  | 
 |----------------------|--------------------------------------------------------|---------------------------------------------|
 | Programa             | `Programa.md`                                          | Raíz del proyecto `/`                       |
-| Filmina              | `<<Título de la filmina>>.pdf`                         | `/Teorico/Unidad_<<N>>_<<Nombre_unidad>>/Filminas`            | 
+| Filmina              | `<<N>> <<Título de la filmina>>.pdf`                         | `/Teorico/Unidad_<<N>>_<<Nombre_unidad>>/Filminas`            | 
 | Notas de clase       | `Nota clase <<DD-MM-YYYY>>.md`                         | `/Teorico/Unidad_<<N>>_<<Nombre_unidad>>/Notas de clase`      | 
 | Resumen              | `Unidad <<Número unidad>> - <<Apellido creador>>.md`                          | `/Teorico/Unidad_<<N>>_<<Nombre_unidad>>/Resúmenes`           | 
 | Guía de ejercicios   | `Guía <<Tipo de guía>>.md`                             | `/Practico`                                 | 
