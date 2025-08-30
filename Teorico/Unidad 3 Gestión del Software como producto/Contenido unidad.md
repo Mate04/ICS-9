@@ -1,13 +1,13 @@
-Unidad Nº: 1
-Título: Ingeniería de Software en Contexto
+Unidad Nº: 3
+Título: Gestión del Software como producto
 Contenidos:
-• La disciplina de Ingeniería del Software. ¿Qué comprede la ingeniería de software?
-• Estado Actual y Antecedentes. La Crisis del Software.
-• Disciplinas que conforman la Ingeniería de Software.
-• Ejemplos de grandes proyectos de software fallidos y exitosos.
-• Ciclos de vida y su influencia en la Administración de Proyectos de Software.
-• Procesos de Desarrollo Empíricos vs. Definidos.
-• Ciclos de vida (Modelos de Proceso) y Procesos de Desarrollo de Software
-• Criterios para elección de ciclos de vida para proyectos de desarrollo de software.
-• Vinculo proceso-proyecto-producto en la gestión de un proyecto de desarrollo de
-software.
+• Conceptos que conforman la disciplina Gestión de Configuración de Software.
+• Planificación de la Gestión de Configuración de Software.
+• Actividades relacionadas con la Gestión de Configuración.
+• El rol de las líneas base y su administración.
+• Elementos de configuración del Software.
+• Identificación de ítems de configuración en la Configuración de un software.
+• Gestión de Configuración en ambientes ágiles
+• Prácticas continuas (Continuous Integration /Continuous Delivery/ Continuous
+deployment)
+• Despliegue de producto. Estrategias para el despliegue de productos.
