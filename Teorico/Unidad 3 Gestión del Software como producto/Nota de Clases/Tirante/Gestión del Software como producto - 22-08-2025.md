@@ -5,6 +5,8 @@
 - Cada cambio genera una nueva **versión**, que debe gestionarse para mantener la trazabilidad.  
 - La **gestión de configuración (SCM)** surge como disciplina transversal para preservar la integridad del producto de software durante todo su ciclo de vida.
 
+
+
 ---
 
 ## Definición de Gestión de Configuración
