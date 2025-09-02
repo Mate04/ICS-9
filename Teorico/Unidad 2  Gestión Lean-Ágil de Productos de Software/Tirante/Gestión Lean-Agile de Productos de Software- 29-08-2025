@@ -1,0 +1,166 @@
+# Unidad 2: Gestión Lean-Agile de Productos de Software
+
+## Manifiesto Ágil (2001)
+Documento redactado por expertos que promueve la filosofía del desarrollo ágil.  
+
+**Valores:**
+1. **Individuos e interacciones > Procesos y herramientas**  
+   Ejemplo: un equipo motivado y comunicativo puede avanzar más que uno con las mejores herramientas pero desmotivado.  
+2. **Software funcionando > Documentación extensiva**  
+   Ejemplo: entregar un prototipo funcional es más útil que un documento de 100 páginas que nadie lee.  
+3. **Colaboración con el cliente > Negociación contractual**  
+   Ejemplo: iterar con el cliente en cada sprint para ajustar el producto.  
+4. **Responder al cambio > Seguir un plan**  
+   Ejemplo: si el mercado cambia, se ajusta el backlog, no se sigue un plan rígido .
+
+---
+
+## Filosofía Ágil
+- Se basa en **iteraciones cortas** (sprints).  
+- Promueve la **adaptación continua** y el **feedback temprano**.  
+
+**Pilares del empirismo:**
+- **Transparencia:** todos ven el estado real del proyecto.  
+- **Inspección:** revisar continuamente lo producido.  
+- **Adaptación:** ajustar el rumbo según los resultados .  
+
+---
+
+## ¿Cuándo aplicar Ágil?
+- Cuando los requerimientos son cambiantes o inciertos.  
+- Proyectos donde el **time-to-market** es clave.  
+- Equipos pequeños y multidisciplinarios.  
+
+**Ejemplo:** startups que necesitan validar rápidamente su producto.
+
+---
+
+## Triángulo Ágil
+Enfoque tradicional: **alcance, tiempo y costo** fijos.  
+En Ágil: **calidad y valor** son el centro; el alcance puede variar según el tiempo y los recursos .  
+
+---
+
+## Filosofía Lean
+Enfocada en maximizar valor y reducir desperdicio.  
+
+**7 Principios Lean:**
+1. Eliminar desperdicio.  
+   - Ejemplo: evitar documentación que nadie usa.  
+2. Construir calidad desde el inicio.  
+   - Ejemplo: pruebas automatizadas continuas.  
+3. Crear conocimiento.  
+   - Ejemplo: retrospectivas de sprint.  
+4. Diferir decisiones hasta el último momento responsable.  
+   - Ejemplo: no elegir una arquitectura hasta conocer los requisitos clave.  
+5. Entregar rápido.  
+   - Ejemplo: releases frecuentes con valor incremental.  
+6. Respetar a las personas.  
+   - Ejemplo: equipos auto-organizados.  
+7. Optimizar el todo.  
+   - Ejemplo: mejorar el flujo de entrega, no solo un área .  
+
+---
+
+## Relación Lean-Ágil
+- Lean aporta **principios de eficiencia**.  
+- Ágil aporta **prácticas de desarrollo iterativo**.  
+- Juntas, permiten entregar **valor temprano** y **reducir desperdicio** .  
+
+---
+
+## Requerimientos en Ambientes Ágiles
+
+### User Stories
+Formato liviano para capturar requerimientos.  
+**Ejemplo:**  
+> Como *usuario registrado* quiero *recuperar mi contraseña* para *acceder al sistema*.  
+
+**Ventajas:** claridad, centrado en el usuario, fomenta la conversación.  
+**Desventajas:** pueden ser ambiguas si no tienen criterios claros .  
+
+**Partes de una User Story:**
+- Rol: quién lo pide.  
+- Funcionalidad: qué necesita.  
+- Valor: para qué lo quiere.  
+
+---
+
+### Product Backlog
+Lista priorizada de todo lo que puede requerir el producto.  
+- Se actualiza continuamente.  
+- Ordenado por **valor de negocio**.  
+
+**Ejemplo:**  
+1. Como cliente, quiero pagar con tarjeta → prioridad alta.  
+2. Como cliente, quiero cambiar mi avatar → prioridad baja.  
+
+---
+
+### Requerimientos Just in Time
+Se detallan **solo cuando es necesario** para no desperdiciar esfuerzo .  
+
+---
+
+### Tipos de Requerimientos
+- **Funcionales:** describen qué hace el sistema.  
+  - Ejemplo: “registrar usuario”.  
+- **No funcionales:** condiciones de calidad.  
+  - Ejemplo: “la respuesta debe ser < 2 segundos”.  
+
+---
+
+### Criterios y Pruebas de Aceptación
+- **Criterios de aceptación:** condiciones que deben cumplirse para considerar una historia terminada.  
+  - Ejemplo: “el sistema envía un email de confirmación al registrarse”.  
+- **Pruebas de aceptación:** casos de prueba que validan esos criterios .  
+
+---
+
+### Definiciones Clave
+- **DoR (Definition of Ready):** cuando una historia está lista para ser trabajada.  
+- **DoD (Definition of Done):** cuando está terminada con la calidad acordada.  
+- **INVEST Model:** las buenas historias deben ser:  
+  - **I**ndependientes  
+  - **N**egociables  
+  - **V**aliosas  
+  - **E**stimables  
+  - **S**mall (pequeñas)  
+  - **T**estables .  
+
+---
+
+### Spikes
+Investigaciones técnicas o de negocio para reducir incertidumbre.  
+**Ejemplo:** probar si una API externa soporta la carga esperada .  
+
+---
+
+### Investment Themes
+Líneas estratégicas que guían la priorización del backlog.  
+**Ejemplo:**  
+- Tema: “mejorar retención de usuarios”.  
+- Historias relacionadas: mejorar onboarding, simplificar registro .  
+
+---
+
+## Resumen Visual (Mapa Conceptual en Markdown)
+
+```text
+Unidad 2: Lean-Agile
+├── Manifiesto Ágil
+│   ├── Valores
+│   └── Principios (Transparencia, Inspección, Adaptación)
+├── Filosofía Lean
+│   └── 7 Principios
+├── Triángulo Ágil
+├── Requerimientos
+│   ├── User Stories
+│   │   ├── Rol - Funcionalidad - Valor
+│   │   ├── Ventajas / Desventajas
+│   │   ├── DoR / DoD / INVEST
+│   │   └── Product Backlog (Just in Time)
+│   ├── Tipos de requerimientos
+│   └── Criterios y pruebas de aceptación
+├── Spikes
+└── Investment Themes
