@@ -1,0 +1,22 @@
+Actividad: listar las historias de usuarios que encuentren del dominio EcoHarmonyPark
+
+Roles
+	• Visitante del parque
+	• Administrador de sistema
+
+US Visitante del parque (prioritarios)
+	• Inscribirse a actividad
+	• Comprar entradas
+	• Consultar exhibiciónes
+	• Registrar usuario
+	• Iniciar sesión
+	• Consultar actividades
+	• Consultar entrada
+	• Consultar sanitarios
+
+
+US Administrador de sistema (no tan importantes)
+	• registrar actividad
+	• registrar exhibición
+	• registrar especie
+  • registrar forma de pago
