@@ -51,7 +51,7 @@
 │   │       └── <<Nombre de tema>> - tp <<Numero de TP>>.pdf
 │   └── Resoluciones de ejercicios/
 │       └── Resolucion de <<Nombre de ejercicio>>/
-│           └── Resolucion <<Tipo de resolucion>> - <<Apellido creador>>.md
+│           └── Resolucion <<Tipo de resolucion>> - <<Apellido creador>>.<<ext>>
 ├── Parciales/
 │   └── Parcial <<Numero de parcial>>/
 │       ├── Parcial <<MM-YYYY>> <<curso>>.pdf
@@ -76,7 +76,7 @@
 | Imágenes             | `<<Nombre de la imagen>>.(png\jpg\jpeg)`               | `/Assets/<<Apellido creador>>`             | 
 | Cronograma           | `Cronograma.xlsx`                                       | `/cronograma`                              |
 | Trabajo Práctico     | `<<Nombre de tema>> - tp <<Número de tp>>.pdf`         | `/Practico/Trabajos practicos/<<Tipo de trabajo practico>>/<<Nombre de tema>> - tp <<Numero de TP>>.pdf`    | 
-| Ejercicio Resuelto | `Resolucion <<Tipo de resolucion>> - <<<Apellido creador>>.md` | `/Practico/Resolucion de Ejercicos/Resolucion de <<Nombre de ejercicio>>` |
+| Ejercicio Resuelto | `Resolucion <<Tipo de resolucion>> - <<<Apellido creador>>.<<ext>>` | `/Practico/Resolucion de Ejercicos/Resolucion de <<Nombre de ejercicio>>` |
 
 ## Reglas de commit
 > 💡 Nota: Siempre mandar en commit su legajo al principio
