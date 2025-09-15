@@ -1,0 +1,140 @@
+Roles:
+- Cliente/comprador
+- Administrador de producto
+- Vendedor
+
+MVP (Producto Mínimo Viable):
+1. Funcionalidades básicas:
+   - ABMC del los productos/kits de body painting.
+   - Inicio de sesion con gestion de Roles.
+   - Carrito de compras y envio a contra entrega.
+   - Proceso de pago de la compra con efectivo.
+   - Administracion de los pedidos.
+
+Fuera de MVP:
+- Integracion con pasarela de pago (billeras virtuales, tarjetas).
+- Comunicaicon con empresas de servicios de envio.
+- Realizacion y administracion de propociones y kits.
+- Gestion de reclamos de clientes.
+
+HIstorias que incluye el MVP:
+US Cliente:
+- Registrar cliente.
+- Iniciar sesion. (preguntar si deberia ir)
+- Confirmar pedido compra con efectivo a contra entrega.
+- Armar carrito de compras.
+US Vendedor:
+- Visualizar el estado de los pedidos.
+
+US Administrador de producto:
+- Registra producto
+- visualizar productos
+
+
+USER STORIES COMPLETAS MVP:
+
+Armar el carriro de compra
+
+Como Cliente quiero armar un carrito de compras para ingresar los 
+productos que deseo comprar.
+
+Criterios de aceptacion:
+- Se pueden agregar productos al carrito.
+- Se pueden eliminar productos del carrito.
+- Se debe mostrar el total del carrito.
+- Se debe poder modificar la cantidad de cada producto en el carrito.
+- Se pueden agregar producot o kits al carrito de compras.
+
+Casos de prueba:
+- Probar armar un carrito con productos simples con la cantidad de cada uno (pasa).
+- Probar armar un carrito con productos de tipo kits con la catidad (pasa).
+- Probar armar un carrito con productos simples y kits (pasa).
+- Probar armar un carro con producto y/o kits sin stock (falla).
+- Probar armar un carrito sin productos o kits (falla).
+- Probar armar un carrito con productos y/o kits y mostrar el total (pasa).
+- Probar armar un carrito con productos y/o kits y no se muestra el total (falla).
+- Probar armar el carrito modificar la cantidad de un producto y no se actualiza el total (falla).
+
+Estimacion, 3 puntos.
+Se estima 3 puntos de ya que requiere una interfaz, manejo de un deslizante
+para poder manejar la cantidad de ese producto, el calculo del total del carrito,
+la logica para agregar y eliminar productos del carrito.
+
+Confirmar pedido de compra con efectivo a contra entrega
+
+Como cliente quiero confirmar mi pedido de compra con efectivo a contra
+entrega para finalizar mi compra.
+
+Criterios de aceptacion:
+- Se debe mostrar el resumen del pedido antes de confirmar la compra.
+- El pedido confirmado ya debe tener la informacion con los datos del cliente, con su 
+email, nombre, apellido, domicilio para la entrega y forma de pago.
+- Un cliente solo puede realizar el pago de un pedido con una forma de pago.
+
+Casos de prueba:
+- Probar confirmar un pedido con productos y/o kits en el carrito (pasa).
+- Probar confirma un pedido con productos simple (pasa).
+- Probar confirmar un pedido con productos tipo kits (pasa).
+- Probar confirmar un pedido sin productos en el carrito (falla).
+- Probar confirmar un pedido y no se muestra el resumen del pedido (falla).
+- Probar confirmar un pedido   sin apellido y/o nombre (falla)..
+- Probar confirmar un pedido  sin domicilio (falla).
+- confirmar un pedido  sin email (falla).
+
+Estimacion de 3:
+Se requiere desarrollar el registro del pedido con los datos de los producto (kits o productos simples),
+el total del pedido, los datos del cliente y la forma de pago.
+Cuanta con una complejidad media para realizar las validaciones de los productos y 
+los datos del cliente.
+No requiere una interfaz compleja.
+
+
+Registrar cliente
+
+Como cliente quiero registrarme en la plataforma para poder realizar
+mis compras con kits y productos.
+
+Criterios de aceptacion:
+- Los datos que debe ingresar el cliente son : nombre, apellido, mail, direccion para el envio
+(calle, numero, piso(puede ser null), departamento(puede ser null), codigo postal, ciudad, provincia, pais).
+
+Casos de prueba:
+- Probar registrar un cliente con todos los datos (pasa).
+- Probar registrar un cliente sin nombre (falla).
+- Probar registrar un cliente sin apellido (falla).
+- Probar registrar un cliente sin mail (falla).
+- Probar registrar un cliente sin direccion (falla).
+- Probar registrar un cliente sin codigo postal (falla).
+- Probar registrar un cliente sin ciudad (falla).
+- Probar registrar un cliente sin provincia (falla).
+- Probar registrar un cliente sin pais (falla).
+- Probar registrar un cliente con un mail ya registrado (falla).
+- Probar registrar un cliente con un mail con formato invalido (falla).
+- Probar registrar un cliente con un codigo postal con formato invalido (falla).
+- Probar registrar un cliente con un pais no soportado (falla).
+
+US Vendedor:
+Visualizar el estado de los pedidos
+
+Como vendedor quiero visualizar el estado de los pedidos para
+poder gestionar los pedidos que tengo que preparar.
+
+Criterios de aceptacion:
+- Se debe poder visualizar el detalle de los pedidos en estado pendiente a entrega:
+  - Datos del cliente (nombre, apellido, email, direccion de envio).
+  - Detalle de los productos del pedido (nombre, cantidad, precio unitario, subtotal).
+  - Total del pedido.
+  - Forma de pago.
+- Los pedidos se visualizan luego de que el cliente confirma el pedido.
+
+Casos de prueba:
+- Probar visualizar un pedido en estado pendiente a entrega (pasa).
+- Probar visualizar pedidos pendientes de entrega y hay pedidos con datos del cliente,
+productos y kits seleccionados, domicilio para la entrega y forma de entrega.
+- Probar visuzalizar pedidos pendientes de entrega y no hay pedidos (pasa).
+- Probar visualizar pedidos pendientes de entrega y hay pedidos pero no se muestran los datos del cliente (falla).
+- Probar visualizar pedidos pendientes de entrega y hay pedidos pero no se muestran los productos y kits seleccionados (falla).
+Probar visualizar pedidos que aun no han sido confirmados (falla)..
+
+
+USER STORY NOTIFICACION:
