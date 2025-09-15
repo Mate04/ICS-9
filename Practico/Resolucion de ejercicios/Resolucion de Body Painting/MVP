@@ -138,3 +138,15 @@ Probar visualizar pedidos que aun no han sido confirmados (falla)..
 
 
 USER STORY NOTIFICACION:
+
+Como vededor quiero notificar al proveedor cuando un paquete esta listo 
+para que el proveedor pueda gestionar el envio.
+Criterios de aceptacion:
+- La notificacion debe tener los datos del cliente (nombre, apellido, email, direccion de envio).
+- La notificacion se envia cunaod el pedido este listo.
+
+Casos de prueba:
+- Probar notificar al proveedor cuando un pedido esta listo (pasa).
+- Probar notificar al proveedor cuando un pedido no esta listo (falla).
+- Probar notificar al proveedor cuando un pedido esta listo y no se envian los datos del cliente (falla).
+- Probar notificar al proveedor cuando un pedido esta listo y no se envia la direccion de envio (falla).
