@@ -1,29 +1,105 @@
 MVP Recircula tus prendas - cuida el planeta
-
+Hipotesis: exiten personas que deciden vender prendas que no usan y compradores que estan dispuestos a comprarlas.
+Queda fuera de alcance la devolucion de las prendas, el envio tanto al centro como al cliente.
 Roles:
 - Vendedor
 - Cliente
-- Analista de revision
--Encargado de logistica
 -Analista de piblicacion
--Administrador 
+
 Flujo Principal:
 El vendedor sube las fotos de la prenda usada con su estado, luego los administradores validan
-que sea real ese estado y aprueban la publicación. El cliente puede ver las prendas y comprarla.
+que sea real ese estado y aprueban la publicación. El cliente puede ver las prendas y comprarla (lo hace tienda mi nube).
 EL negocio se encargfa de la publicacion, venta y distribucion de las prendas.
-
+La aplicacion solo deberia administrar a los compradores y vendederes. Lo de mas se considera tercerizado, por MP, transportista
+y tiende nube.
 US:
 
 Registro de cliente
-Regiostrar puntos de envio?
-Registrar formulario de prenda
-Registrar ficha de prenda 
-Publicar prenda en ecomerce
+Regiostrar puntos de envio? quedira afuera
+Registrar formulario de prenda 
+Registrar vendedor MVP
+Registrar ficha de prenda (analista) 
+Publicar prenda en ecomerce (fuera del MVP)
 Generar propuesta venta 
 Enviar notificacion de propuesta de venta (preg si podria ir junta con la de arriba)
 Registrar confirmacion de propuesta de venta
-Visualizar prendas en ecomerce
-INtegracion con tiendaNube?
-Gestioanr liquidacion a vendedores
-Enviar notificacion de prenda vendida
-Enviar notificaicon email del detalle de liquidacion
+Visualizar prendas en ecomerce NO VA MVP, lo maneja tienda mi nuebe
+Gestioanr liquidacion a vendedores (NO VA)
+Enviar notificacion de prenda vendida (NO VA)
+Enviar notificaicon email del detalle de liquidacion (NO VA)
+
+USER STORIES
+
+Confirmar propuesta de venta
+
+Como vendedor
+quiero aceptar o rechazar la propuesta de venta 
+para que mis prendas seleccionadas puedan ser publicadas y donadas o retiradas en caso de que no hayan sido seleccionadas.
+Casos de aceptacion:
+
+El vendedor debe recibir un email con el listado de prendas de la propuesta.
+EL mail debe contener un link que redireccione a la pagina con el listado de las prendas de la propuesta.
+Mostrar el listado de prendas seleccionadas para aceptar o rehazar.
+Mostrar por cada prenda del listado un boton de acepar.
+Mostrar por cada prenda del listado un boton de cancelar.
+Pedir que se seleccione que hacer con las prendas que no fueron aceptadas (donar/retirar)
+Si no se acepta la propuesta no se pueden publicar.
+no permitir acepatr o rechazar si el cliente no esta logueado.
+La propuesta debe mostar la fecha, cantidad de prendas,nombre, categoría, estado, precio sugerido y la ganancia que
+obtendrá al venderse y listado de todas las prendas que no quedaron seleccionadas
+Pruebas de usuario:
+- El vendedor acepta la propuesta de venta (pasa)
+- El vendedor rechaza la propuesta de venta  (pasa)
+- El vendedor esta registrardo (pasa)
+- El vendedor no esta registrado (falla)
+-El vendedor esta logueado (pasa)
+-El vendedor no esta logueado (falla)
+- El vendedor no selecciona que hacer con las prendas rechazadas(pasa)
+- El vendedor Selecciona donar/retirar las prendas rechazadas (pasa)
+- La propuesta no muestra la fecha (falla)
+- la propuesta no muestra la cantidad de prendas (falla).
+-La propuesta no muestra el nombre de prenda (falla).
+- La propuesta no muestra la categoria de la prenda (falla).
+- La propuesta no muestra el estado (falla).
+-La propuesta no muestra el precio sugerido (falla).
+- La propuesta no muestra la ganacia que tendria el vendedor (falla).
+- La propuesta no muestra las prendas que no quedaron seleccionadas (falla).
+- La propopuesta muestra todos los datos en simultaneo fecha, cantidad de prendas,nombre, categoría, estado, precio sugerido y la ganancia que
+obtendrá al venderse y listado de todas las prendas que no quedaron seleccionadas
+Pruebas de usuario:
+estimacion 2 puntos 
+
+
+RESOLUCION PROPUESTA EN CLASES
+Como vendedor
+quiero aceptar o rechazar la propuesta de venta en bloque
+para publicar las prendas seleccionadas y definir el destino de las no seleccionadas (donar/retirar).
+
+Casos de aceptación:
+
+El vendedor recibe un email con el listado de la propuesta y un link a la página de detalle.
+Requiere usuario logueado; si no lo está, redirige a login.
+La página muestra dos listados:
+Prendas seleccionadas: fecha de propuesta, cantidad, nombre, categoría, estado, precio sugerido y ganancia estimada.
+Prendas no seleccionadas: fecha de propuesta, cantidad, nombre, categoría, motivo de no selección y selector obligado “donar/retirar”.
+No permite Confirmar si existen prendas no seleccionadas sin decisión (donar/retirar).
+Botón Aceptar propuesta (en bloque) y Rechazar propuesta (en bloque).
+Si se acepta, las seleccionadas quedan “listas para publicar” y se envía email de confirmación con resumen.
+Si se rechaza, no se publica nada y se envía email notificando.
+Si la propuesta está vencida, no permite aceptar/rechazar y muestra mensaje de expiración.
+
+Pruebas de usuario:
+El vendedor acepta la propuesta de venta → pasa.
+El vendedor rechaza la propuesta de venta → pasa.
+El vendedor no está logueado → falla (redirige a login).
+El vendedor está logueado → pasa (accede al detalle).
+Hay prendas no seleccionadas sin donar/retirar → falla (bloquea Confirmar).
+El vendedor marca donar o retirar para todas las no seleccionadas → pasa.
+El listado de seleccionadas muestra precio sugerido y ganancia estimada → pasa; si falta alguno → falla.
+El listado de no seleccionadas muestra motivo y selector donar/retirar → pasa; si falta alguno → falla.
+Propuesta vencida → falla (no permite confirmar).
+
+
+
+
+
