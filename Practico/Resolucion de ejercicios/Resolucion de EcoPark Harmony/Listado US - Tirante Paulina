@@ -1,0 +1,29 @@
+MVP Recircula tus prendas - cuida el planeta
+
+Roles:
+- Vendedor
+- Cliente
+- Analista de revision
+-Encargado de logistica
+-Analista de piblicacion
+-Administrador 
+Flujo Principal:
+El vendedor sube las fotos de la prenda usada con su estado, luego los administradores validan
+que sea real ese estado y aprueban la publicación. El cliente puede ver las prendas y comprarla.
+EL negocio se encargfa de la publicacion, venta y distribucion de las prendas.
+
+US:
+
+Registro de cliente
+Regiostrar puntos de envio?
+Registrar formulario de prenda
+Registrar ficha de prenda 
+Publicar prenda en ecomerce
+Generar propuesta venta 
+Enviar notificacion de propuesta de venta (preg si podria ir junta con la de arriba)
+Registrar confirmacion de propuesta de venta
+Visualizar prendas en ecomerce
+INtegracion con tiendaNube?
+Gestioanr liquidacion a vendedores
+Enviar notificacion de prenda vendida
+Enviar notificaicon email del detalle de liquidacion
