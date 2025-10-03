@@ -1,0 +1,51 @@
+# Notas 5/9
+
+No ser dogmático
+
+    Agilismo: apuntamos más al proceso de software por sobre la documentación extensiva. Buscar aprender sobre el hacer. 
+
+- Estimaciones ágiles
+
+    Son relativas, estima el que hace el trabajo (***esfuerzo colaborativo***). No es algo absoluto sino que se puede construir desde distintas partes → Story Points. 
+
+    Lo primero que debemos estimar es que vamos a CONSTRUIR (el producto), el desafío acá está en determinar el tamaño. También hay que tener en cuenta el esfuerzo, la cantidad de ***horas lineales*** que a una sola persona le lleva construir un producto de software. 
+
+    El tamaño del software suele tener un crecimiento exponencial, entonces necesitamos una escala adecuada para llevarlo. ***Importante***: hay que usar números de la serie de Fibonacci (error de parcial). 
+
+    Story point: unidad de estimación que le asignamos a la User Story de acuerdo a su peso o tamaño (si o si con número de Fibonacci). Podemos asignar números menores a 13 para poder cumplir con el tiempo de la sprint, si es mayor habrá que partirlo. Son la base de las estimaciones relativas.
+    Dentro del SP tendremos 3 dimensiones: ***esfuerzo***, ***incertidumbre***, ***complejidad***. Cada una va a tener una distinta proporción en cada User Story (aplica el número fibo). 
+
+    ***Velocidad***: es una métrica de producto. Se mide en cuantos puntos de historia aceptó el Product Owner en la ceremonia de Sprint correspondiente.  
+
+    Poker Estimation: es moldeable de acuerdo a las necesidades de la empresa, por ejemplo: implementar el 0 para requerimientos no funcionales. Lo ideal sería usar ***2, 3, 5, 8*** como nivel de US para UNA sola sprint, números mayores son irrealizables en una sola. 
+
+    Según SCRUM: una sola persona debería tomar una User y realizarla completa. En la vida real imposible, hoy por hoy el desarrollo está muy especializado y distribuido. 
+
+    Poker Planning: empieza tomando la Base Story (canónica), para ello se suele considerar la US más simple con menos incertidumbre que sea más sencilla de construir. Será el ejemplar del ***US*** ***más sencilla del producto***. Para la siguiente US se discute y luego cada uno le pone un valor de estimación. 
+    (Si o si la canónica debe ser menor a 1, tiene que ser lo más sencillo. 2 te da margen para moverte hacia arriba o abajo. No más que 8). 
+
+# Gestión de productos
+
+     La tendencia de la industria es considerar al software como producto (basta de programita!!!). Esto implica una nueva lógica para desarrollar. Para empezar debe existir alguna motivación para desarrollar un producto: 
+
+- Satisfacer clientes
+- Tener usuarios logueados
+- Dinero
+- Altruismo
+
+    Nuevo ciclo de vida a ***nivel Producto*** distinto al lo que teníamos como proyecto (recordatorio: iterativo, incremental, en cascada, evolutivo). 
+    El 20% de las características del producto van a representar el 80% de su valor. Por ende nos debemos enfocar y poner el esfuerzo en ese 20%, sobre todo en las entregas.
+    Entre tanta competencia lo que aspiramos es que nuestro producto llegue a ser ***significativo***, que cambie la vida a los usuarios. Entre usable y conveniente esta la línea de quiebre para una organización. 
+
+    ***MVP (Minimal viable Product)***: producto mínimo viable hipotéticamente. Antes de salir a mercado necesito validar la idea, ver si alguien va a ***comprar/usar*** el producto que estoy desarrollando. Generalmente sólo hay una oportunidad para impresionar. Este MVP puede decirme si vale la pena invertir en la idea, no necesariamente debe ser software sino que puede ser una PPT, hipótesis, croquis, video, cualquier elemento que me permita atraer inversores. 
+
+    MVF (Minimal Viable Feature):  funcionalidad mínima viable, en lugar de una idea, una función mínima funcional. Forma parte del MVP.
+
+    El MVP al final estará compuesto por distintas partes. Al llegar a producción/mercado ya debo tener algo ***funcional***, no puedo salir a vender sin tener algo que sirva. 
+    A medida que voy desarrollando el producto se puede ir relacionando con las distintas partes, de acuerdo a la etapa en que me encuentro del proceso iré sumando distintos elementos. 
+
+    ***Valor:*** todo lo que no genera valor de negocio es desperdicio. 
+
+    Problemas con el MVP: hacer foco en un único elemento, por lo general funcionalidad (diseño, usabilidad, confiabilidad, funcionalidad), debo tratar de englobar todos los aspectos con el fin de enganchar al cliente y que se enamore del producto.
+
+    ***MLP (Minimal Lovable Product):*** el producto mínimo que puede hacer que un cliente se enganche. Además, puede establecer una reputación para la marca,… Lo ideal sería entender al público objetivo y definir una propuesta de valor acorde para satisfacer.
