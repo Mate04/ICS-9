@@ -15,6 +15,28 @@ public class DateValidator {
      * @return true si la fecha es válida, false si no lo es
      */
     public boolean isValidDate(String dateString) {
-        throw new UnsupportedOperationException("Método no implementado todavía");
+        try {
+            if (dateString == null) {
+                return false;
+            }
+            LocalDate date = LocalDate.parse(dateString, FORMATTER);
+            LocalDate today = LocalDate.now();
+            int month = date.getMonth().getValue();
+            int day = date.getDayOfMonth();
+            String dayOfWeek = date.getDayOfWeek().toString();
+
+            if (month == 12 && day == 25) {
+                return false;
+            }
+            if (month == 1 && day == 1) {
+                return false;
+            }
+            if(dayOfWeek.equals("MONDAY")){
+                return false;
+            }
+            return !date.isBefore(today);
+        } catch (DateTimeParseException e) {
+            return false;
+        }
     }
 }
