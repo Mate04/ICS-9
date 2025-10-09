@@ -1,6 +1,9 @@
 package TDD_CompraEntradas_tp6.demo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import TDD_CompraEntradas_tp6.demo.classes.DateValidator;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class DateValidatorTest {

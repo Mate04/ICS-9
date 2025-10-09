@@ -1,4 +1,4 @@
-package TDD_CompraEntradas_tp6.demo;
+package TDD_CompraEntradas_tp6.demo.classes;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
