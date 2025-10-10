@@ -1,0 +1,57 @@
+# Notas 3/10
+
+Extreme Programming (XP) es una **metodología ágil de desarrollo de software** diseñada para mejorar la **calidad del software** y la **satisfacción del cliente**, mediante la aplicación disciplinada de buenas prácticas de ingeniería, enfocadas en la **adaptabilidad ante cambios frecuentes en los requerimientos**. [ChatGPT]
+
+XP se distingue por:
+
+- Entregas **incrementales y frecuentes** de software funcional.
+- **Participación continua del cliente** en el proceso.
+- **Pruebas automatizadas** para asegurar la fiabilidad.
+- **Refactorización constante** para mantener la calidad del código.
+
+## Niveles de Prueba
+
+- Prueba de aceptación (UAT) [Workflow Despliegue]
+- Sistema o versión [Prueba]
+- Integración [Prueba]
+- Unitario → Desarrollo (Implementar)
+
+       
+
+    **TDD** es una práctica de desarrollo de software en la que **las pruebas se escriben antes del código de producción**. Es una técnica central en metodologías ágiles como **Extreme Programming (XP)**, y su objetivo es **garantizar que el software cumpla con los requisitos desde el inicio y mantener alta calidad**. [ChatGPT]
+
+    TDD: si no tenés claro lo que vas a desarrollar, no lo vas a poder desarrollar. Primero pensá el componente probador y después construí. 
+
+    ***Libro diseño ágil con TDD***
+
+    Pienso siempre en los casos de prueba ***ANTES*** de empezar a programar. Para el desarrollo en el parcial debo hacer pruebas específicas, debo evitar a toda costa hacer casos generales.
+    El TDD está parado a nivel de prueba unitario, la técnica de ATDD lo mueve a niveles superiores
+
+## Leyes de TDD
+
+- No codear sin pensar en un test
+- No codear más de lo necesario para pasar el test [Fundamental]
+- No escribir más test de los necesarios, con uno que falla es suficiente
+
+    Escribir un test → Falla → Ajusto el programa → Pasa
+
+    Siempre hay algún genio que hace una prueba más allá de la ideada, por eso trato de hacer condiciones de pruebas positivas y negativas
+
+## Ejemplo Taxi Mobile
+
+    Precondiciones: datos que necesito para ejecutar una prueba, se tiene en cuenta todo (se debería probar todo). Establecen el estado inicial para ejecutar la prueba.
+
+    “Las precondiciones definen el estado que debe tener el sistema antes de invocar un procedimiento, función o método.” [ChatGPT]
+
+    Debemos dejar claro cual es el escenario que vamos a probar. 
+
+## Refactoring
+
+    Refactoring: replanteamos el código buscando mejorar la calidad del código aplicando principios de diseño (Alta cohesión, bajo acoplamiento). Funcionalmente no tocamos nada
+
+> El refactoring es una técnica para **mejorar la mantenibilidad, legibilidad y calidad del software** sin alterar su funcionalidad. Es una práctica clave en metodologías ágiles como XP y en desarrollo basado en TDD. [ChatGPT, Pressman, Sommerville]
+> 
+
+   
+
+Para el martes harmony park
