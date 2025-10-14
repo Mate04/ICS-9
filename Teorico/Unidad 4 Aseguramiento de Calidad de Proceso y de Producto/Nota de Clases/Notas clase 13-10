@@ -1,0 +1,37 @@
+Testing de caja blanca y caja negra
+
+Objetivo general de Testing
+El testing de software busca verificar y validar que el sistema
+cumpla con los requerimientos.
+- Verificar: “¿Estamos construyendo el producto correctamente?”
+- Validar: “¿Estamos construyendo el producto correcto?”
+
+Para logragr esto tenemos 2 enfoque principales:
+- caja negra
+- caja blanca
+
+Pruebas de caja negra
+Este enfoque se centra en las funcionalidades del sistema sin tener acceso a la estructura interna o el codigo fuente del software:
+
+- Enfoque: El SW es visto como una "Caja negra". El tester no necesita saber como esta implementado internamente el sistema.
+- Objetivo: analizar el sistema en terminos de entradas y salidas. Se ingresan datos y se compara el resultado obtenido con el resultado esperado, basandose en los requerimientos funcionales del cliente.
+- Fuentes de casos de prueba: se derivan de las especificaciones del producto y de la esperiencia del tester.
+
+- Tecnica clave (basadas en especificaiones):
+    - Particion de equivalencias: identificar subconjuntos de datos (clases de equivalencias) que deben producir resultados equivalentes y probar solo un valor de cada clase.
+    - Analisis de los valores limites: usar los valores de borde (limites) de las clases de equivalencia en los casos de prueba, ya que son puntos propensos a errores.
+
+- Tecnicas clave (basadas en experienci):
+    - Adivinanzas de defectos: usar la intuicion y experiencia para identificar entradas que probablemente expongan defectos del SW.
+
+2. Pruebas de caja blanca:
+Este enfoque, a diferencia de caja negra, se centra en la estructura interna del software y requiere accesi al codigo funete:
+    - Enfoque: Se dispone de la estructura interna de la implementación (el código) para diseñar las pruebas.
+    - Objetivo: verificar que el codigo cumpla con las especificaciones internas y que todas sus estructuras internas (caminos logicos, bucles, estructuras de datos y condiciones) se ejecuten correctamente. Busca errores de codificacion e ineficiencias.
+    - Quien las realiza?: tipicamente el desarrollador (como las pruebas unitarias).
+    - Tecnicas clave: se basn en la cobertura codigo, como:
+        - Cobertura de sentencias.
+        - Cobertura de decisiones.
+
+Conclusiones sobre estretegias
+El mejor efoque no es utilizar un solo metodo, sino combinar una variedad de tecnicas de caja negra y caja blanca para lograr un testing mas efectivo y agregar valor al producto al revelar su calidad.
