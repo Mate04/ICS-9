@@ -1,0 +1,23 @@
+name: HarmoniApp
+
+services:
+  dbHarmoniApp:
+    container_name: dbHarmoniApp
+    image: postgres:latest
+    volumes:
+      - dbHarmoniApp:/var/lib/postgresql/data # Volumen temporal para la base de datos
+      - ./initdb:/docker-entrypoint-initdb.d # Scripts de inicialización
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: harmoni
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+volumes:
+  dbHarmoniApp:
