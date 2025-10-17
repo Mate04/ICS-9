@@ -1,6 +1,6 @@
 package TDD_CompraEntradas_tp6.demo;
 
-import TDD_CompraEntradas_tp6.demo.entities.Visitante;
+import TDD_CompraEntradas_tp6.demo.clases.Visitante;
 import TDD_CompraEntradas_tp6.demo.utils.CantidadEntradasValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

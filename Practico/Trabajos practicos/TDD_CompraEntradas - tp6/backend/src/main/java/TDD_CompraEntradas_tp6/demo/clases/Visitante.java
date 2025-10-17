@@ -1,4 +1,4 @@
-package TDD_CompraEntradas_tp6.demo.entities;
+package TDD_CompraEntradas_tp6.demo.clases;
 
 public class Visitante {
     //atributos
