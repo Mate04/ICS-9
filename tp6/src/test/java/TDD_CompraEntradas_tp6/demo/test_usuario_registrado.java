@@ -1,1 +1,0 @@
-// Contenido del archivo original (debe ser reemplazado con el contenido real del archivo en el commit)
