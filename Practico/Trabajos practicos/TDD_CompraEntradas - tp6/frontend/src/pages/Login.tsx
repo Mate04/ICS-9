@@ -14,33 +14,26 @@ export default function Login() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Limpiar errores previos al intentar el envío
     setEmailError("");
     setPasswordError("");
 
     let hasError = false;
 
-    // 1. Validar Email
     if (!email) {
-      // El navegador ya no verifica si está vacío; React lo hace ahora
       setEmailError("El email es obligatorio para iniciar sesión.");
       hasError = true;
     } else if (!emailRegex.test(email)) {
-      // Usamos la regex estricta para el formato
       setEmailError(
         "El email debe tener un formato de dominio válido (ej: usuario@dominio.com)."
       );
       hasError = true;
     }
 
-    // 2. Validar Contraseña
     if (!password) {
-      // El navegador ya no verifica si está vacío; React lo hace ahora
       setPasswordError("La contraseña es obligatoria para iniciar sesión.");
       hasError = true;
     }
 
-    // Si hay algún error, detenemos el submit
     if (hasError) {
       return;
     }
