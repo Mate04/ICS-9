@@ -94,10 +94,10 @@ export default function Paso1Formulario({ onNext }: Paso1FormularioProps) {
   const today = new Date().toISOString().split("T")[0]
 
   return (
-    <div className="w-full max-w-3xl mx-auto px-4">
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 sm:p-6 md:p-8">
-        <h2 className="text-2xl sm:text-3xl font-semibold text-neutral mb-1 sm:mb-2">Información de visita</h2>
-        <p className="text-sm sm:text-base text-gray-500 mb-6 sm:mb-8">Completa los datos para tu visita al parque</p>
+    <div className="w-full max-w-3xl mx-auto">
+      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 sm:p-6 md:p-8">
+        <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold text-neutral mb-1">Información de visita</h2>
+        <p className="text-sm text-gray-500 mb-6 sm:mb-8">Completa los datos para tu visita al parque</p>
 
         <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
           {/* Date Selection */}
@@ -121,9 +121,10 @@ export default function Paso1Formulario({ onNext }: Paso1FormularioProps) {
                 type="button"
                 onClick={agregarVisitante}
                 disabled={visitantes.length >= 10}
-                className="btn btn-circle btn-sm sm:btn-md btn-primary text-white disabled:opacity-50"
+                className="btn btn-circle btn-md btn-primary text-white disabled:opacity-50"
+                aria-label="Agregar visitante"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
                   <path
                     fillRule="evenodd"
                     d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
@@ -135,13 +136,13 @@ export default function Paso1Formulario({ onNext }: Paso1FormularioProps) {
 
             {errors.maxVisitantes && <p className="text-error text-sm mb-4">{errors.maxVisitantes}</p>}
 
-            <div className="space-y-3 sm:space-y-4">
+            <div className="space-y-3">
               {visitantes.map((visitante, index) => (
                 <div key={visitante.id} className="bg-base-100 rounded-xl p-4 sm:p-5 border border-gray-100">
                   <div className="flex items-start gap-3 sm:gap-4">
                     <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                       <div>
-                        <label className="block text-xs font-medium text-gray-600 mb-1">Edad</label>
+                        <label className="block text-xs font-medium text-gray-600 mb-1.5">Edad</label>
                         <input
                           type="number"
                           min="1"
@@ -150,7 +151,7 @@ export default function Paso1Formulario({ onNext }: Paso1FormularioProps) {
                           onChange={(e) =>
                             actualizarVisitante(visitante.id, "edad", Number.parseInt(e.target.value) || 0)
                           }
-                          className="input input-bordered w-full bg-white focus:outline-none focus:ring-2 focus:ring-primary h-11"
+                          className="input input-bordered w-full bg-white focus:outline-none focus:ring-2 focus:ring-primary h-11 text-base"
                           placeholder="Ej: 25"
                         />
                         {errors[`edad-${index}`] && (
@@ -159,11 +160,11 @@ export default function Paso1Formulario({ onNext }: Paso1FormularioProps) {
                       </div>
 
                       <div>
-                        <label className="block text-xs font-medium text-gray-600 mb-1">Tipo de entrada</label>
+                        <label className="block text-xs font-medium text-gray-600 mb-1.5">Tipo de entrada</label>
                         <select
                           value={visitante.tipoEntrada}
                           onChange={(e) => actualizarVisitante(visitante.id, "tipoEntrada", e.target.value)}
-                          className="select select-bordered w-full bg-white focus:outline-none focus:ring-2 focus:ring-primary h-11"
+                          className="select select-bordered w-full bg-white focus:outline-none focus:ring-2 focus:ring-primary h-11 text-base"
                         >
                           {tiposEntrada.map((tipo) => (
                             <option key={tipo.nombre} value={tipo.nombre}>
@@ -178,7 +179,7 @@ export default function Paso1Formulario({ onNext }: Paso1FormularioProps) {
                       <button
                         type="button"
                         onClick={() => eliminarVisitante(visitante.id)}
-                        className="btn btn-ghost btn-sm btn-circle text-gray-400 hover:text-error mt-6"
+                        className="btn btn-ghost btn-sm btn-circle text-gray-400 hover:text-error mt-7"
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -205,7 +206,7 @@ export default function Paso1Formulario({ onNext }: Paso1FormularioProps) {
             <button
               type="submit"
               disabled={loading}
-              className="btn btn-primary text-white w-full sm:w-auto sm:px-8 h-12 disabled:opacity-50"
+              className="btn btn-primary text-white w-full sm:w-auto sm:px-8 h-12 text-base disabled:opacity-50"
             >
               {loading ? <span className="loading loading-spinner loading-sm"></span> : "Continuar"}
             </button>

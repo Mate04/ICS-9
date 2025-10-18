@@ -74,15 +74,15 @@ export default function Paso2Pago({ pedidoValidado, onBack, onConfirm }: Paso2Pa
   }
 
   return (
-    <div className="w-full max-w-3xl mx-auto px-4">
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 sm:p-6 md:p-8">
-        <h2 className="text-2xl sm:text-3xl font-semibold text-neutral mb-1 sm:mb-2">Resumen de compra</h2>
-        <p className="text-sm sm:text-base text-gray-500 mb-6 sm:mb-8">Revisa los detalles de tu pedido</p>
+    <div className="w-full max-w-3xl mx-auto">
+      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 sm:p-6 md:p-8">
+        <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold text-neutral mb-1">Resumen de compra</h2>
+        <p className="text-sm text-gray-500 mb-6 sm:mb-8">Revisa los detalles de tu pedido</p>
 
-        <div className="space-y-5 sm:space-y-6 mb-6 sm:mb-8">
+        <div className="space-y-5 mb-6 sm:mb-8">
           {/* Order ID and Date */}
           <div className="bg-base-100 rounded-xl p-4 sm:p-5 border border-gray-100">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
                 <p className="text-xs font-medium text-gray-500 mb-1">Número de pedido</p>
                 <p className="text-base sm:text-lg font-semibold text-neutral">#{pedidoValidado.idPedido}</p>
@@ -99,9 +99,9 @@ export default function Paso2Pago({ pedidoValidado, onBack, onConfirm }: Paso2Pa
           {/* Visitors Details */}
           <div>
             <h3 className="text-sm font-medium text-neutral mb-3">Detalle de entradas</h3>
-            <div className="space-y-2 sm:space-y-3">
+            <div className="space-y-2.5">
               {pedidoValidado.resumen.visitantes.map((visitante, index) => (
-                <div key={index} className="bg-base-100 rounded-xl p-3 sm:p-4 border border-gray-100">
+                <div key={index} className="bg-base-100 rounded-xl p-3.5 sm:p-4 border border-gray-100">
                   <div className="flex items-center justify-between gap-3">
                     <div className="flex-1 min-w-0">
                       <p className="font-medium text-neutral capitalize text-sm sm:text-base truncate">
@@ -166,7 +166,7 @@ export default function Paso2Pago({ pedidoValidado, onBack, onConfirm }: Paso2Pa
             type="button"
             onClick={onBack}
             disabled={loading}
-            className="btn btn-ghost text-neutral disabled:opacity-50 h-12"
+            className="btn btn-ghost text-neutral disabled:opacity-50 h-12 text-base"
           >
             Volver
           </button>
@@ -174,7 +174,7 @@ export default function Paso2Pago({ pedidoValidado, onBack, onConfirm }: Paso2Pa
             type="button"
             onClick={handleConfirmar}
             disabled={loading || !metodoPagoSeleccionado}
-            className="btn btn-primary text-white sm:px-8 disabled:opacity-50 h-12"
+            className="btn btn-primary text-white sm:px-8 disabled:opacity-50 h-12 text-base"
           >
             {loading ? <span className="loading loading-spinner loading-sm"></span> : getBotonTexto()}
           </button>

@@ -24,11 +24,11 @@ export default function Login() {
     <div className="min-h-screen bg-base-100 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-6 sm:mb-8">
-          <h1 className="text-4xl sm:text-5xl font-bold text-primary mb-2">EcoPark</h1>
+          <h1 className="text-3xl sm:text-4xl font-bold text-primary mb-1 sm:mb-2">EcoPark</h1>
           <p className="text-sm sm:text-base text-gray-600">Inicia sesión para comprar tus entradas</p>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-8">
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 sm:p-6 md:p-8">
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
               <label className="block text-sm font-medium text-neutral mb-2">Email</label>
@@ -37,7 +37,7 @@ export default function Login() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="input input-bordered w-full bg-base-100 focus:outline-none focus:ring-2 focus:ring-primary h-12"
+                className="input input-bordered w-full bg-base-100 focus:outline-none focus:ring-2 focus:ring-primary h-12 text-base"
                 placeholder="tu@email.com"
               />
             </div>
@@ -49,7 +49,7 @@ export default function Login() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="input input-bordered w-full bg-base-100 focus:outline-none focus:ring-2 focus:ring-primary h-12"
+                className="input input-bordered w-full bg-base-100 focus:outline-none focus:ring-2 focus:ring-primary h-12 text-base"
                 placeholder="••••••••"
               />
             </div>
@@ -57,7 +57,7 @@ export default function Login() {
             <button
               type="submit"
               disabled={loading}
-              className="btn btn-primary w-full text-white disabled:opacity-50 h-12"
+              className="btn btn-primary w-full text-white disabled:opacity-50 h-12 text-base"
             >
               {loading ? <span className="loading loading-spinner loading-sm"></span> : "Iniciar sesión"}
             </button>

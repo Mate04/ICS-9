@@ -7,7 +7,6 @@ import { api, type Visitante, type PedidoValidado } from "../services/api"
 export default function FormularioMultipaso() {
   const navigate = useNavigate()
   const [pasoActual, setPasoActual] = useState(1)
-  const [fechaVisita, setFechaVisita] = useState("")
   const [pedidoValidado, setPedidoValidado] = useState<PedidoValidado | null>(null)
   const [loading, setLoading] = useState(false)
 
@@ -15,7 +14,6 @@ export default function FormularioMultipaso() {
     setLoading(true)
     try {
       const resultado = await api.validarDatos(fecha, visitantes)
-      setFechaVisita(fecha)
       setPedidoValidado(resultado)
       setPasoActual(2)
     } catch (error) {
@@ -48,9 +46,9 @@ export default function FormularioMultipaso() {
       {/* Progress Indicator */}
       <div className="max-w-3xl mx-auto mb-6 sm:mb-8">
         <div className="flex items-center justify-center gap-2 sm:gap-4">
-          <div className="flex items-center gap-1 sm:gap-2">
+          <div className="flex items-center gap-2">
             <div
-              className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-semibold text-sm sm:text-base ${
+              className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-semibold text-sm ${
                 pasoActual === 1 ? "bg-primary text-white" : "bg-success text-white"
               }`}
             >
@@ -61,11 +59,11 @@ export default function FormularioMultipaso() {
             </span>
           </div>
 
-          <div className="w-8 sm:w-16 h-0.5 bg-gray-300"></div>
+          <div className="w-12 sm:w-16 h-0.5 bg-gray-300"></div>
 
-          <div className="flex items-center gap-1 sm:gap-2">
+          <div className="flex items-center gap-2">
             <div
-              className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-semibold text-sm sm:text-base ${
+              className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-semibold text-sm ${
                 pasoActual === 2 ? "bg-primary text-white" : "bg-gray-300 text-gray-500"
               }`}
             >
@@ -80,7 +78,7 @@ export default function FormularioMultipaso() {
 
       {/* Form Steps */}
       {loading ? (
-        <div className="flex items-center justify-center py-12 sm:py-20">
+        <div className="flex items-center justify-center py-12 sm:py-16 md:py-20">
           <span className="loading loading-spinner loading-lg text-primary"></span>
         </div>
       ) : (
