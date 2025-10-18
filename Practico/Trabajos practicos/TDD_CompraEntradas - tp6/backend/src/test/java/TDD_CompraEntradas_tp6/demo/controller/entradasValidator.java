@@ -18,7 +18,7 @@ public class entradasValidator {
     private MockMvc mockMvc;
 
     @Test
-    void testCompra() throws Exception {
+    void test_recibir_detalle_compra_entradas() throws Exception {
         String json = """
     {
       "fecha": "2025-10-20",
