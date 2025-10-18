@@ -54,14 +54,33 @@ export default function Paso1Formulario({ onNext }: Paso1FormularioProps) {
     if (!fechaVisita) {
       newErrors.fechaVisita = "Debe seleccionar una fecha de visita"
     } else {
-      const selectedDate = new Date(fechaVisita)
+      const [year, month, day] = fechaVisita.split("-").map(Number)
+      const selectedDate = new Date(year, month - 1, day)
       const today = new Date()
       today.setHours(0, 0, 0, 0)
 
       if (selectedDate < today) {
         newErrors.fechaVisita = "La fecha debe ser hoy o en el futuro"
+      } else {
+        const dayOfWeek = selectedDate.getDay()
+        const day = selectedDate.getDate()
+        const month =  selectedDate.getMonth() + 1
+
+        if (dayOfWeek === 1){
+          newErrors.fechaVisita = "El parque no abre los días lunes"
+        }
+
+        if (day === 25 && month === 12){
+          newErrors.fechaVisita = "El parque permanece cerrado en navidad"
+        }
+
+        if (day === 1 && month ===1 ){
+          newErrors.fechaVisita = "El parque permanece cerrado en año nuevo"
+        }
       }
     }
+
+    
 
     visitantes.forEach((v, index) => {
       if (!v.edad || v.edad <= 0) {
@@ -69,8 +88,9 @@ export default function Paso1Formulario({ onNext }: Paso1FormularioProps) {
       }
     })
 
+    const esValido = Object.keys(newErrors).length === 0
     setErrors(newErrors)
-    return Object.keys(newErrors).length === 0
+    return esValido
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -106,7 +126,14 @@ export default function Paso1Formulario({ onNext }: Paso1FormularioProps) {
             <input
               type="date"
               value={fechaVisita}
-              onChange={(e) => setFechaVisita(e.target.value)}
+              onChange={(e) => {
+                const value = e.target.value
+                const parts = value.split("-")
+                if (parts[0] && parts[0].length > 4){
+                  parts[0] = parts[0].slice(0, 4) // se limita el año a 4 dígitos
+                }
+                setFechaVisita(parts.join("-"))
+              }}
               min={today}
               className="input input-bordered w-full bg-base-100 focus:outline-none focus:ring-2 focus:ring-primary h-12"
             />
