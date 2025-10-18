@@ -9,12 +9,22 @@ export default function FormularioMultipaso() {
   const [pasoActual, setPasoActual] = useState(1)
   const [pedidoValidado, setPedidoValidado] = useState<PedidoValidado | null>(null)
   const [loading, setLoading] = useState(false)
-
+  //para controlar el modal
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  //agregue para manejar la cantidad de entradas y la fecha del evento
+  const [fechaEvento, setFechaEvento] = useState<string>("")
+  const [cantidadEntradas, setCantidadEntradas ] = useState<number>(0)
+  
   const handlePaso1Complete = async (fecha: string, visitantes: Visitante[]) => {
     setLoading(true)
     try {
       const resultado = await api.validarDatos(fecha, visitantes)
       setPedidoValidado(resultado)
+
+      //guardamos la fecha y la cantidad de entradas
+      setFechaEvento(fecha)
+      setCantidadEntradas(visitantes.length)
+
       setPasoActual(2)
     } catch (error) {
       console.error("Error validating data:", error)
@@ -29,9 +39,11 @@ export default function FormularioMultipaso() {
   }
 
   const handleConfirmarCompra = () => {
-    alert(
-      `¡Compra confirmada! Se ha enviado un correo de confirmación.\n\nPedido #${pedidoValidado?.idPedido}\nTotal: ${pedidoValidado?.importeTotal} ARS`,
-    )
+    setIsModalOpen(true)
+  }
+
+  const handleCerrarModalYNavegar = () => {
+    setIsModalOpen(false)
     navigate("/")
   }
 
@@ -89,6 +101,56 @@ export default function FormularioMultipaso() {
             <Paso2Pago pedidoValidado={pedidoValidado} onBack={handleVolver} onConfirm={handleConfirmarCompra} />
           )}
         </>
+      )}
+      {/*NUEVO ELEMENTO: Modal de Confirmación de Compra (usando DaisyUI) */}
+      {isModalOpen && pedidoValidado && (
+              <div className="modal modal-open">
+                <div className="modal-box text-center">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="mx-auto h-16 w-16 text-success"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                  <h3 className="font-bold text-lg text-success mt-4">¡Compra Confirmada!</h3>
+                  <p className="py-4 text-gray-700">
+                    Se ha enviado un correo electrónico de confirmación con los detalles de tu pedido.
+                  </p>
+                  <div className="bg-base-200 p-4 rounded-lg my-4 text-left">
+                    <p className="font-bold text-base mb-1 text-neutral">Detalles del Pedido:</p>
+                      {fechaEvento && (
+                          <p>
+                              <strong>Fecha del Evento:</strong> 
+                              <span className="text-neutral font-medium ml-1">
+                                  {/* Formato DD/MM/AAAA usando substrings del formato AAAAMMDD */}
+                                  {`${fechaEvento.substring(6, 8)}/${fechaEvento.substring(4, 6)}/${fechaEvento.substring(0, 4)}`}
+                              </span>
+                          </p>
+                      )}
+                      <p>
+                          <strong>Cantidad de Entradas:</strong> 
+                          <span className="text-neutral font-medium ml-1">{cantidadEntradas}</span>
+                      </p>
+                      
+                      <p><strong>N° Pedido:</strong> <span className="text-primary font-mono">{pedidoValidado.idPedido}</span></p>
+
+                      <p><strong>Total:</strong> <span className="font-bold text-xl text-primary">{pedidoValidado.importeTotal} ARS</span></p>
+                  </div>
+                  <div className="modal-action justify-center">
+                    <button className="btn btn-primary" onClick={handleCerrarModalYNavegar}>
+                      Ir a la Página Principal
+                    </button>
+                  </div>
+                </div>
+              </div>
       )}
     </div>
   )
