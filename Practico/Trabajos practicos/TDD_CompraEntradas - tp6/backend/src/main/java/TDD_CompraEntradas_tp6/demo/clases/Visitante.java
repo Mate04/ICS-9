@@ -1,9 +1,41 @@
 package TDD_CompraEntradas_tp6.demo.clases;
 
+import TDD_CompraEntradas_tp6.demo.entities.TipoPersona;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Visitante {
     //atributos
-    int edad;
+    Integer edad;
     String tipoEntrada; // 1: VIP, 2: REGULAR
+    TipoPersona tipoPersona;
+
+    public Visitante(int edad, String tipoEntrada) {
+
+        if (!isValidAge(edad)){
+            throw new IllegalArgumentException("En algun participante la edad no es valida");
+        }
+        this.edad = edad;
+        this.tipoEntrada = tipoEntrada;
+        this.tipoPersona = this.calcularTipoPersona(edad);
+    }
+
+    private TipoPersona calcularTipoPersona(int edad){
+        if(0 <= edad && edad <= 3){
+            return TipoPersona.BEBE;
+        }
+        if(3 < edad && edad <= 14){
+            return TipoPersona.JOVEN;
+        }
+        if(65 <= edad){
+            return TipoPersona.JUBILADO;
+        }
+        return TipoPersona.ADULTO;
+    }
 
     //metodos validacion
     public boolean isValidAge(Object edadObj) {
@@ -31,6 +63,5 @@ public class Visitante {
         }
         return tipoEntrada.equals("VIP") || tipoEntrada.equals("REGULAR");
     }
-
 
 }
