@@ -19,5 +19,16 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+  app:
+    build: .             # tu Dockerfile de Spring Boot
+    depends_on:
+      dbHarmoniApp:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+    ports:
+      - "8080:8080"
+    restart: on-failure
+
 volumes:
   dbHarmoniApp:
