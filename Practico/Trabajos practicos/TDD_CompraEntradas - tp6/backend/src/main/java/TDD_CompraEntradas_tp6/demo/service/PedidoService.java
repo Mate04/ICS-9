@@ -3,7 +3,9 @@ package TDD_CompraEntradas_tp6.demo.service;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
+import TDD_CompraEntradas_tp6.demo.controller.dto.req.ConfirmarPedidoDTO;
 import org.springframework.stereotype.Service;
 
 import TDD_CompraEntradas_tp6.demo.clases.Visitante;
@@ -71,5 +73,38 @@ public class PedidoService {
 
         //Pedido pedido = createPedido(montoTotal, detallerPedido);
         return new PedidoResDTO(savePedido);
+    }
+
+    public void confirmarPago(ConfirmarPedidoDTO confirmarPedidoDTO) {
+
+        Optional<Pedido> pedido;
+        pedido = this.pedidorepository.findById(confirmarPedidoDTO.getIdPedido());
+
+        Pedido pedidoVerificado = verificarPedido(pedido, confirmarPedidoDTO);
+
+        this.pedidorepository.updateById(confirmarPedidoDTO.getIdPedido(), pedidoVerificado);
+
+
+    }
+
+    private Pedido verificarPedido(Optional<Pedido> pedido, ConfirmarPedidoDTO confirmarPedidoDTO) {
+        if(!pedido.isPresent()) {
+            throw new RuntimeException("Pedido no encontrado");
+        }
+
+        if(confirmarPedidoDTO.getMetodoPago().name().equals("MERCADO_PAGO")){
+            pedido.get().setEstado(EstadoPedido.FINALIZADO);
+        }
+
+        switch (confirmarPedidoDTO.getMetodoPago().name()){
+            case "MERCADO_PAGO":
+                pedido.get().setEstado(EstadoPedido.PENDIENTE_MERCADO_PAGO);
+                return pedido.get();
+            case "EFECTIVO":
+                pedido.get().setEstado(EstadoPedido.PENDIENTE_EFECTIVO);
+                return pedido.get();
+            default:
+                throw new IllegalStateException("Unexpected value: " + confirmarPedidoDTO.getMetodoPago().name());
+        }
     }
 }

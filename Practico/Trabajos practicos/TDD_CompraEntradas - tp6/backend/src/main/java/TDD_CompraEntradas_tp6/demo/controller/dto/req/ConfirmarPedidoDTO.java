@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class ConfirmarPedidoDTO {
     @NotNull(message = "Orden de pedido debe ser obligatoria")
     @Schema(description = "Orden de pedido", example = "1")
-    int idPedido;
+    Integer idPedido;
 
     @NotNull(message = "Metodo de pago debe ser obligatoria")
     @Schema(description = "Metodo de pago", example = "MERCADO_PAGO")
