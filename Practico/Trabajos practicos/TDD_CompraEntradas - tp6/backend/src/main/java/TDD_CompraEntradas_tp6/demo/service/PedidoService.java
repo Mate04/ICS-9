@@ -40,7 +40,7 @@ public class PedidoService {
                 .toArray(String[]::new);
     }
 
-    public Object validarDatos(ValidarDatoDTO validarDatoDTO) {
+    public PedidoResDTO validarDatos(ValidarDatoDTO validarDatoDTO) {
         // todo: no esta andando despues ver
 //        if(!FechaValidator.isValidDate(validarDatoDTO.getFechaVisita().toString())){
 //            throw new IllegalArgumentException("La fecha no es un valida");
@@ -71,12 +71,5 @@ public class PedidoService {
 
         //Pedido pedido = createPedido(montoTotal, detallerPedido);
         return new PedidoResDTO(savePedido);
-    }
-    private Pedido createPedido(double montoTotal, List<DetallePedido> detallePedidos){
-        Pedido pedido = Pedido.builder()
-                .detallesPedidos(detallePedidos)
-                .montoTotal(montoTotal)
-                .build();
-        return pedidorepository.save(pedido);
     }
 }
