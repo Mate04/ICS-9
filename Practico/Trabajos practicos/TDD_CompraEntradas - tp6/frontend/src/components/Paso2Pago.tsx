@@ -1,185 +1,118 @@
-import { useState, useEffect } from "react"
-import { api, type PedidoValidado } from "../services/api"
+import React, { useState, useEffect } from "react";
+// Corregimos la importación para traer la función directamente
+import { getMetodosPago, type PedidoValidado } from "../services/api";
 
+// Asumo la estructura de estas props basándome en el contexto
 interface Paso2PagoProps {
-  pedidoValidado: PedidoValidado
-  onBack: () => void
-  onConfirm: () => void
+  pedidoValidado: PedidoValidado;
+  onBack: () => void;
+  onConfirm: (metodoPago: string) => void;
 }
 
-export default function Paso2Pago({ pedidoValidado, onBack, onConfirm }: Paso2PagoProps) {
-  const [metodosPago, setMetodosPago] = useState<string[]>([])
-  const [metodoPagoSeleccionado, setMetodoPagoSeleccionado] = useState("")
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState("")
+export default function Paso2Pago({
+  pedidoValidado,
+  onBack,
+  onConfirm,
+}: Paso2PagoProps) {
+  const [metodosPago, setMetodosPago] = useState<string[]>([]);
+  const [metodoPagoSeleccionado, setMetodoPagoSeleccionado] =
+    useState<string>("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const fetchMetodosPago = async () => {
+      console.log("1. Buscando MÉTODOS DE PAGO..."); // Mensaje para saber que la función se ejecuta
       try {
-        const metodos = await api.getMetodosPago()
-        setMetodosPago(metodos)
-      } catch (error) {
-        console.error("Error fetching payment methods:", error)
+        const metodos = await getMetodosPago();
+        console.log("2. Respuesta de MÉTODOS DE PAGO recibida:", metodos); // ¿Qué recibimos realmente?
+
+        if (Array.isArray(metodos) && metodos.length > 0) {
+          setMetodosPago(metodos);
+          setMetodoPagoSeleccionado(metodos[0]); // Seleccionamos el primero por defecto
+          console.log("3. Estado 'metodosPago' actualizado con éxito.");
+        } else {
+          console.warn(
+            "La respuesta del backend no es un array o está vacía:",
+            metodos
+          );
+          setError("No se encontraron métodos de pago.");
+        }
+      } catch (err) {
+        // Este es el punto clave: si hay un error, lo veremos aquí
+        console.error("¡ERROR! La petición a getMetodosPago() falló:", err);
+        setError("No se pudieron cargar los métodos de pago.");
       }
+    };
+
+    fetchMetodosPago();
+  }, []); // El array vacío asegura que esto se ejecute solo una vez
+
+  const handleConfirm = () => {
+    if (metodoPagoSeleccionado) {
+      onConfirm(metodoPagoSeleccionado);
     }
-    fetchMetodosPago()
-  }, [])
+  };
 
-  const formatearFecha = (fecha: string): string => {
-    const year = fecha.substring(0, 4)
-    const month = fecha.substring(4, 6)
-    const day = fecha.substring(6, 8)
-    return `${day}/${month}/${year}`
-  }
-
-  const formatearPrecio = (precio: number): string => {
-    return new Intl.NumberFormat("es-AR", {
-      style: "currency",
-      currency: "ARS",
-    }).format(precio)
-  }
-
-  const handleConfirmar = async () => {
-    if (!metodoPagoSeleccionado) {
-      setError("Debe seleccionar un método de pago")
-      return
-    }
-
-    setLoading(true)
-    setError("")
-
-    try {
-      const success = await api.confirmarPedido({
-        idPedido: pedidoValidado.idPedido,
-        metodoPago: metodoPagoSeleccionado,
-      })
-
-      if (success) {
-        onConfirm()
-      } else {
-        setError("Error al confirmar el pedido. Intente nuevamente.")
-      }
-    } catch (error) {
-      console.error("Error confirming order:", error)
-      setError("Error al procesar el pago. Intente nuevamente.")
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  const getBotonTexto = () => {
-    if (loading) return "Procesando..."
-    if (metodoPagoSeleccionado === "Mercado Pago") return "Pagar con Mercado Pago"
-    return "Confirmar compra"
-  }
-
+  // JSX de ejemplo para que el componente sea funcional
   return (
-    <div className="w-full max-w-3xl mx-auto">
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 sm:p-6 md:p-8">
-        <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold text-neutral mb-1">Resumen de compra</h2>
-        <p className="text-sm text-gray-500 mb-6 sm:mb-8">Revisa los detalles de tu pedido</p>
+    <div className="w-full max-w-xl mx-auto">
+      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
+        <h2 className="text-2xl font-semibold text-neutral mb-2">
+          Método de Pago
+        </h2>
+        <p className="text-sm text-gray-500 mb-8">
+          Selecciona cómo quieres pagar tu pedido.
+        </p>
 
-        <div className="space-y-5 mb-6 sm:mb-8">
-          {/* Order ID and Date */}
-          <div className="bg-base-100 rounded-xl p-4 sm:p-5 border border-gray-100">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div>
-                <p className="text-xs font-medium text-gray-500 mb-1">Número de pedido</p>
-                <p className="text-base sm:text-lg font-semibold text-neutral">#{pedidoValidado.idPedido}</p>
-              </div>
-              <div>
-                <p className="text-xs font-medium text-gray-500 mb-1">Fecha de emisión</p>
-                <p className="text-base sm:text-lg font-semibold text-neutral">
-                  {formatearFecha(pedidoValidado.resumen.fechaEmision)}
-                </p>
-              </div>
-            </div>
-          </div>
+        {error && <p className="text-error text-center mb-4">{error}</p>}
 
-          {/* Visitors Details */}
-          <div>
-            <h3 className="text-sm font-medium text-neutral mb-3">Detalle de entradas</h3>
-            <div className="space-y-2.5">
-              {pedidoValidado.resumen.visitantes.map((visitante, index) => (
-                <div key={index} className="bg-base-100 rounded-xl p-3.5 sm:p-4 border border-gray-100">
-                  <div className="flex items-center justify-between gap-3">
-                    <div className="flex-1 min-w-0">
-                      <p className="font-medium text-neutral capitalize text-sm sm:text-base truncate">
-                        {visitante.categoria}
-                      </p>
-                      <p className="text-xs sm:text-sm text-gray-500 capitalize">Entrada {visitante.tipoEntrada}</p>
-                    </div>
-                    <p className="text-base sm:text-lg font-semibold text-primary whitespace-nowrap">
-                      {formatearPrecio(visitante.subtotal)}
-                    </p>
-                  </div>
-                </div>
-              ))}
+        <div className="space-y-4">
+          {metodosPago.map((metodo) => (
+            <div
+              key={metodo}
+              onClick={() => setMetodoPagoSeleccionado(metodo)}
+              className={`
+                        p-4 border rounded-lg cursor-pointer transition-all duration-200
+                        ${
+                          metodoPagoSeleccionado === metodo
+                            ? "bg-primary/10 border-primary ring-2 ring-primary"
+                            : "border-gray-200 hover:border-gray-400"
+                        }
+                    `}
+            >
+              <label className="flex items-center space-x-4">
+                <input
+                  type="radio"
+                  name="metodoPago"
+                  value={metodo}
+                  checked={metodoPagoSeleccionado === metodo}
+                  onChange={() => setMetodoPagoSeleccionado(metodo)}
+                  className="radio radio-primary"
+                />
+                <span className="font-medium text-neutral">{metodo}</span>
+              </label>
             </div>
-          </div>
-
-          {/* Total */}
-          <div className="bg-primary/5 rounded-xl p-4 sm:p-5 border border-primary/20">
-            <div className="flex items-center justify-between gap-3">
-              <p className="text-base sm:text-lg font-medium text-neutral">Total a pagar</p>
-              <p className="text-xl sm:text-2xl font-bold text-primary whitespace-nowrap">
-                {formatearPrecio(pedidoValidado.importeTotal)}
-              </p>
-            </div>
-          </div>
-
-          {/* Payment Method Selection */}
-          <div>
-            <label className="block text-sm font-medium text-neutral mb-3">Método de pago</label>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {metodosPago.map((metodo) => (
-                <button
-                  key={metodo}
-                  type="button"
-                  onClick={() => setMetodoPagoSeleccionado(metodo)}
-                  className={`p-4 rounded-xl border-2 transition-all text-left min-h-[56px] ${
-                    metodoPagoSeleccionado === metodo
-                      ? "border-primary bg-primary/5"
-                      : "border-gray-200 bg-white hover:border-gray-300"
-                  }`}
-                >
-                  <div className="flex items-center gap-3">
-                    <div
-                      className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
-                        metodoPagoSeleccionado === metodo ? "border-primary" : "border-gray-300"
-                      }`}
-                    >
-                      {metodoPagoSeleccionado === metodo && <div className="w-3 h-3 rounded-full bg-primary"></div>}
-                    </div>
-                    <span className="font-medium text-neutral text-sm sm:text-base">{metodo}</span>
-                  </div>
-                </button>
-              ))}
-            </div>
-            {error && <p className="text-error text-sm mt-2">{error}</p>}
-          </div>
+          ))}
         </div>
 
-        {/* Action Buttons */}
-        <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-4 border-t border-gray-100">
-          <button
-            type="button"
-            onClick={onBack}
-            disabled={loading}
-            className="btn btn-ghost text-neutral disabled:opacity-50 h-12 text-base"
-          >
+        <div className="flex justify-between items-center mt-10">
+          <button onClick={onBack} className="btn btn-ghost">
             Volver
           </button>
           <button
-            type="button"
-            onClick={handleConfirmar}
-            disabled={loading || !metodoPagoSeleccionado}
-            className="btn btn-primary text-white sm:px-8 disabled:opacity-50 h-12 text-base"
+            onClick={handleConfirm}
+            disabled={!metodoPagoSeleccionado || loading}
+            className="btn btn-primary text-white"
           >
-            {loading ? <span className="loading loading-spinner loading-sm"></span> : getBotonTexto()}
+            {loading ? (
+              <span className="loading loading-spinner"></span>
+            ) : (
+              "Confirmar Pago"
+            )}
           </button>
         </div>
       </div>
     </div>
-  )
+  );
 }
