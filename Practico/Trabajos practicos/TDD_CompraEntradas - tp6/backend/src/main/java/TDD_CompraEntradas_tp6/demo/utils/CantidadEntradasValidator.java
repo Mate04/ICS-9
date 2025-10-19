@@ -1,8 +1,8 @@
 package TDD_CompraEntradas_tp6.demo.utils;
 
-import java.util.List;
-
 import TDD_CompraEntradas_tp6.demo.clases.Visitante;
+
+import java.util.List;
 
 public class CantidadEntradasValidator {
 

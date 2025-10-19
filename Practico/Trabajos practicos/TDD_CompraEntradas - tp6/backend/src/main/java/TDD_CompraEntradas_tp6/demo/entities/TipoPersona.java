@@ -1,4 +1,4 @@
-package TDD_CompraEntradas_tp6.demo.clases;
+package TDD_CompraEntradas_tp6.demo.entities;
 
 public enum TipoPersona {
     JOVEN,

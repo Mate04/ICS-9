@@ -2,10 +2,9 @@ package TDD_CompraEntradas_tp6.demo;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
+import TDD_CompraEntradas_tp6.demo.clases.Visitante;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import TDD_CompraEntradas_tp6.demo.clases.Visitante;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 

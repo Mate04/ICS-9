@@ -8,7 +8,6 @@ import TDD_CompraEntradas_tp6.demo.entities.TipoPersona;
 
 @Data
 @NoArgsConstructor
-
 @Entity
 public class DetallePedido {
     @Id
@@ -23,7 +22,7 @@ public class DetallePedido {
     TipoEntrada tipoEntrada;
     double precio;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_pedido", nullable = false)
-    Pedido pedido;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "id_pedido", nullable = false)
+//    Pedido pedido;
 }
