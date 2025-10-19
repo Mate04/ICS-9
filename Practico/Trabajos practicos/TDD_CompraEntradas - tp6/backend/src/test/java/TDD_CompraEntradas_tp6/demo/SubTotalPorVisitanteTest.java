@@ -1,6 +1,6 @@
 package TDD_CompraEntradas_tp6.demo;
 
-
+import TDD_CompraEntradas_tp6.demo.entities.TipoEntrada;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -18,31 +18,31 @@ public class SubTotalPorVisitanteTest {
 
     @Test
     void testCalculoMenores() {
-        assertEquals(0, validator.subtotalPorEdad(2, "REGULAR"));
-        assertEquals(0, validator.subtotalPorEdad(2, "VIP"));
+        assertEquals(0, validator.subtotalPorEdad(2, TipoEntrada.GENERAL));
+        assertEquals(0, validator.subtotalPorEdad(2, TipoEntrada.VIP));
     }
 
     @Test
-    void testCalculoedad4a16() {
-        assertEquals(5000, validator.subtotalPorEdad(4, "VIP"));
-        assertEquals(2500, validator.subtotalPorEdad(15, "REGULAR"));
+    void testCalculoEdad4a16() {
+        assertEquals(5000, validator.subtotalPorEdad(4, TipoEntrada.VIP));
+        assertEquals(2500, validator.subtotalPorEdad(15, TipoEntrada.GENERAL));
     }
 
     @Test
-    void testcalculoedad16a59() {
-        assertEquals(10000, validator.subtotalPorEdad(16, "VIP"));
-        assertEquals(5000, validator.subtotalPorEdad(59,"REGULAR"));
+    void testCalculoEdad16a59() {
+        assertEquals(10000, validator.subtotalPorEdad(16, TipoEntrada.VIP));
+        assertEquals(5000, validator.subtotalPorEdad(59, TipoEntrada.GENERAL));
     }
 
     @Test
-    void testCalculoedadmayor60() {
-        assertEquals(5000, validator.subtotalPorEdad(60,"VIP"));
-        assertEquals(2500, validator.subtotalPorEdad(99, "REGULAR"));
+    void testCalculoEdadMayor60() {
+        assertEquals(5000, validator.subtotalPorEdad(60, TipoEntrada.VIP));
+        assertEquals(2500, validator.subtotalPorEdad(99, TipoEntrada.GENERAL));
     }
 
     @Test
     void testEdadNull() {
-        assertThrows(IllegalArgumentException.class, () -> validator.subtotalPorEdad(null, "VIP"));
+        assertThrows(IllegalArgumentException.class, () -> validator.subtotalPorEdad(null, TipoEntrada.VIP));
     }
 
     @Test
@@ -54,9 +54,4 @@ public class SubTotalPorVisitanteTest {
     void testAmbosNull() {
         assertThrows(IllegalArgumentException.class, () -> validator.subtotalPorEdad(null, null));
     }
-
 }
-
-    
-
-
