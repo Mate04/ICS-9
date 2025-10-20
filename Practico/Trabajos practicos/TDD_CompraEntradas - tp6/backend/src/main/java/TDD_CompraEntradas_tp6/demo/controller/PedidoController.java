@@ -34,12 +34,9 @@ public class PedidoController {
         return this.pedidoService.validarDatos(validarDatoDTO);
     }
 
-    //TODO: Desarrollar endpoint
     @PostMapping
     public ConfirmarPedidoRES confirmarPedido(@Valid @RequestBody ConfirmarPedidoDTO confirmarPedidoDTO) {
-
-
-
+        this.pedidoService.confirmarPago(confirmarPedidoDTO);
         return new ConfirmarPedidoRES(true, "Se creo exitosamente el pedido", confirmarPedidoDTO.getMetodoPago());
     }
 

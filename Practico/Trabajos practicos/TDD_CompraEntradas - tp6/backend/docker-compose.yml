@@ -5,14 +5,13 @@ services:
     container_name: dbHarmoniApp
     image: postgres:latest
     volumes:
-      - dbHarmoniApp:/var/lib/postgresql/data
-      - ./initdb:/docker-entrypoint-initdb.d
+      - dbHarmoniApp:/var/lib/postgresql/data # Volumen temporal para la base de datos
+      - ./initdb:/docker-entrypoint-initdb.d # Scripts de inicialización
     restart: always
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: root
       POSTGRES_DB: harmoni
-      TZ: America/Argentina/Buenos_Aires   # ✅ Zona horaria correcta
     ports:
       - "5432:5432"
     healthcheck:
@@ -20,9 +19,8 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-
   app:
-    build: .
+    build: .             # tu Dockerfile de Spring Boot
     depends_on:
       dbHarmoniApp:
         condition: service_healthy

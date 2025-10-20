@@ -77,34 +77,35 @@ public class PedidoService {
 
     public void confirmarPago(ConfirmarPedidoDTO confirmarPedidoDTO) {
 
-        Optional<Pedido> pedido;
-        pedido = this.pedidorepository.findById(confirmarPedidoDTO.getIdPedido());
+        Pedido pedido = this.pedidorepository.findById(confirmarPedidoDTO.getIdPedido()).orElse(null);
+        if (pedido == null) {
+            throw new IllegalStateException("Pedido no encontrado");
+        }
 
-        Pedido pedidoVerificado = verificarPedido(pedido, confirmarPedidoDTO);
+        Pedido pedidoVerificado = verificarPedido(pedido, confirmarPedidoDTO.getMetodoPago());
 
-        this.pedidorepository.updateById(confirmarPedidoDTO.getIdPedido(), pedidoVerificado);
+        pedido.setEstado(pedidoVerificado.getEstado());
+        pedido.setTipoPago(confirmarPedidoDTO.getMetodoPago());
+        this.pedidorepository.save(pedido);
 
 
     }
 
-    private Pedido verificarPedido(Optional<Pedido> pedido, ConfirmarPedidoDTO confirmarPedidoDTO) {
-        if(!pedido.isPresent()) {
-            throw new RuntimeException("Pedido no encontrado");
+    private Pedido verificarPedido(Pedido pedido, MetodoPago metodoPago) {
+        if(pedido.getEstado() == EstadoPedido.CREADO){
+            return switch (metodoPago) {
+                case MetodoPago.MERCADO_PAGO -> {
+                    pedido.setEstado(EstadoPedido.PENDIENTE_MERCADO_PAGO);
+                    yield pedido;
+                }
+                case MetodoPago.EFECTIVO -> {
+                    pedido.setEstado(EstadoPedido.PENDIENTE_EFECTIVO);
+                    yield pedido;
+                }
+                default ->
+                        throw new IllegalStateException("Unexpected value: " + metodoPago.name());
+            };
         }
-
-        if(confirmarPedidoDTO.getMetodoPago().name().equals("MERCADO_PAGO")){
-            pedido.get().setEstado(EstadoPedido.FINALIZADO);
-        }
-
-        switch (confirmarPedidoDTO.getMetodoPago().name()){
-            case "MERCADO_PAGO":
-                pedido.get().setEstado(EstadoPedido.PENDIENTE_MERCADO_PAGO);
-                return pedido.get();
-            case "EFECTIVO":
-                pedido.get().setEstado(EstadoPedido.PENDIENTE_EFECTIVO);
-                return pedido.get();
-            default:
-                throw new IllegalStateException("Unexpected value: " + confirmarPedidoDTO.getMetodoPago().name());
-        }
+        throw new IllegalStateException("El pedido ya fue confirmado: " + pedido.getEstado());
     }
 }

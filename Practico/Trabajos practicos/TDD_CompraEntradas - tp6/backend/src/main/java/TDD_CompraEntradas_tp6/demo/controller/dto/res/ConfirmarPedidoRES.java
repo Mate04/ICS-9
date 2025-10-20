@@ -2,10 +2,14 @@ package TDD_CompraEntradas_tp6.demo.controller.dto.res;
 
 import TDD_CompraEntradas_tp6.demo.entities.MetodoPago;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class ConfirmarPedidoRES {
     boolean success;
     MetodoPago metodoPago;
