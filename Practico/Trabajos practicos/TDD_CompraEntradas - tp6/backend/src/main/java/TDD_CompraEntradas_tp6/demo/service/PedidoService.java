@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import TDD_CompraEntradas_tp6.demo.controller.dto.req.ConfirmarPedidoDTO;
+import TDD_CompraEntradas_tp6.demo.utils.EnviarMail;
 import org.springframework.stereotype.Service;
 
 import TDD_CompraEntradas_tp6.demo.clases.Visitante;
@@ -87,6 +88,7 @@ public class PedidoService {
         pedido.setEstado(pedidoVerificado.getEstado());
         pedido.setTipoPago(confirmarPedidoDTO.getMetodoPago());
         this.pedidorepository.save(pedido);
+        EnviarMail.enviar("91461@sistemas.frc.utn.edu.ar", pedido);
 
 
     }
