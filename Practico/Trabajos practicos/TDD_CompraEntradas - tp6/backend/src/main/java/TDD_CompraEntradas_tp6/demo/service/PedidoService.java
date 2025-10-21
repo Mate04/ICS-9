@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import TDD_CompraEntradas_tp6.demo.controller.dto.req.ConfirmarPedidoDTO;
+import TDD_CompraEntradas_tp6.demo.utils.FechaValidator;
 import org.springframework.stereotype.Service;
 
 import TDD_CompraEntradas_tp6.demo.clases.Visitante;
@@ -43,14 +44,14 @@ public class PedidoService {
     }
 
     public PedidoResDTO validarDatos(ValidarDatoDTO validarDatoDTO) {
-        // todo: no esta andando despues ver
-//        if(!FechaValidator.isValidDate(validarDatoDTO.getFechaVisita().toString())){
-//            throw new IllegalArgumentException("La fecha no es un valida");
-//        };
+        if(!FechaValidator.isValidDate(validarDatoDTO.getFechaVisita().toString())){
+            throw new IllegalArgumentException("La fecha no es un valida");
+        };
         List<DetallePedidoDTO> detallerPedidoRes = new ArrayList<>();
         Pedido pedido = Pedido.builder()
                 .montoTotal(0)
                 .estado(EstadoPedido.CREADO)
+                .fechaVisita(validarDatoDTO.getFechaVisita())
                 .build();
         for (VisitanteDTO visitanteDTO : validarDatoDTO.getVisitantes()) {
 
@@ -95,7 +96,8 @@ public class PedidoService {
         if(pedido.getEstado() == EstadoPedido.CREADO){
             return switch (metodoPago) {
                 case MetodoPago.MERCADO_PAGO -> {
-                    pedido.setEstado(EstadoPedido.PENDIENTE_MERCADO_PAGO);
+                    //TODO: se procesa el pago como exitoso en mercado pago
+                    pedido.setEstado(EstadoPedido.FINALIZADO);
                     yield pedido;
                 }
                 case MetodoPago.EFECTIVO -> {

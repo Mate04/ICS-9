@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Date;
 
@@ -19,7 +20,7 @@ import java.util.Date;
 public class ValidarDatoDTO {
     @NotNull(message = "La fecha de visita no puede ser nula")
     @Schema(description = "Fecha de la visita", example = "2025-10-19")
-    private Date fechaVisita;
+    private LocalDate fechaVisita;
 
     @NotEmpty(message = "Debe enviar al menos un visitante")
     @Valid

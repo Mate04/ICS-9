@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -26,9 +27,11 @@ public class Pedido {
         @Column(name = "id_pedido")
         private long id;
 
-
         @Column(nullable = false)
         private LocalDateTime fechaEmision;
+
+        @Column()
+        private LocalDate fechaVisita;
 
         @Column(nullable = false)
         private double montoTotal;
