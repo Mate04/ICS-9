@@ -18,26 +18,26 @@ public class SubTotalPorVisitanteTest {
 
     @Test
     void testCalculoMenores() {
-        assertEquals(0, validator.subtotalPorEdad(2, TipoEntrada.GENERAL));
+        assertEquals(0, validator.subtotalPorEdad(2, TipoEntrada.REGULAR));
         assertEquals(0, validator.subtotalPorEdad(2, TipoEntrada.VIP));
     }
 
     @Test
     void testCalculoEdad4a16() {
         assertEquals(5000, validator.subtotalPorEdad(4, TipoEntrada.VIP));
-        assertEquals(2500, validator.subtotalPorEdad(15, TipoEntrada.GENERAL));
+        assertEquals(2500, validator.subtotalPorEdad(15, TipoEntrada.REGULAR));
     }
 
     @Test
     void testCalculoEdad16a59() {
         assertEquals(10000, validator.subtotalPorEdad(16, TipoEntrada.VIP));
-        assertEquals(5000, validator.subtotalPorEdad(59, TipoEntrada.GENERAL));
+        assertEquals(5000, validator.subtotalPorEdad(59, TipoEntrada.REGULAR));
     }
 
     @Test
     void testCalculoEdadMayor60() {
         assertEquals(5000, validator.subtotalPorEdad(60, TipoEntrada.VIP));
-        assertEquals(2500, validator.subtotalPorEdad(99, TipoEntrada.GENERAL));
+        assertEquals(2500, validator.subtotalPorEdad(99, TipoEntrada.REGULAR));
     }
 
     @Test

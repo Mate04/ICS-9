@@ -14,7 +14,7 @@ public class VisitanteDTO {
     //@Max(100)
     @Schema(description = "edad visitante", example = "18")
     private Integer edadVisitante;
-    @Schema(description = "tipo entrada", defaultValue = "GENERAL")
+    @Schema(description = "tipo entrada", defaultValue = "REGULAR")
     private TipoEntrada tipoEntrada;
 
 }
