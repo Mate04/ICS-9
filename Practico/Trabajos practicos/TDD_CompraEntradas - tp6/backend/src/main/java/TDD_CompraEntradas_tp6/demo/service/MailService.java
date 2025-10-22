@@ -1,17 +1,26 @@
-package TDD_CompraEntradas_tp6.demo.utils;
+package TDD_CompraEntradas_tp6.demo.service;
 
 import TDD_CompraEntradas_tp6.demo.entities.Pedido;
+import TDD_CompraEntradas_tp6.demo.repository.PedidoRepository;
 import com.resend.*;
 import com.resend.core.exception.ResendException;
 import com.resend.services.emails.model.CreateEmailOptions;
 import com.resend.services.emails.model.CreateEmailResponse;
+import lombok.RequiredArgsConstructor;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.format.DateTimeFormatter;
 import java.util.regex.Pattern;
 
-public class EnviarMail {
+
+@Service
+@RequiredArgsConstructor
+public class MailService {
 
     private static final Resend resend = new Resend("re_5WrjFDqt_GKJEoW9jPcFHyPBniKfBsSHT");
+    private final PedidoRepository pedidoRepository;
 
     private static final Pattern EMAIL_PATTERN = Pattern.compile(
             "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}$",
@@ -24,7 +33,11 @@ public class EnviarMail {
         }
     }
 
-    public static void enviar(String usuario, Pedido pedido) {
+    @Async
+    @Transactional(readOnly = true)
+    public void enviar(String usuario, Pedido pedidoDTO) {
+        Pedido pedido = pedidoRepository.findById((int) pedidoDTO.getId())
+                .orElseThrow(() -> new IllegalStateException("Pedido no encontrado"));
         if (usuario == null || !EMAIL_PATTERN.matcher(usuario).matches()) {
             throw new InvalidEmailException("El correo electrónico '" + usuario + "' no es válido.");
         }
