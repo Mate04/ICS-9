@@ -3,10 +3,8 @@ package TDD_CompraEntradas_tp6.demo.service;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 import TDD_CompraEntradas_tp6.demo.controller.dto.req.ConfirmarPedidoDTO;
-import TDD_CompraEntradas_tp6.demo.utils.EnviarMail;
 import TDD_CompraEntradas_tp6.demo.utils.FechaValidator;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +28,7 @@ import lombok.RequiredArgsConstructor;
 public class PedidoService {
 
     private final PedidoRepository pedidorepository;
+    private final MailService mailService;
 
 
     public String[] getMetodoPago() {
@@ -89,7 +88,10 @@ public class PedidoService {
         pedido.setEstado(pedidoVerificado.getEstado());
         pedido.setTipoPago(confirmarPedidoDTO.getMetodoPago());
         this.pedidorepository.save(pedido);
-        EnviarMail.enviar("91461@sistemas.frc.utn.edu.ar", pedido);
+
+        //Funcion asincrona
+        this.mailService.enviar("91461@sistemas.frc.utn.edu.ar", pedido);
+        System.out.println("Finish");
 
 
     }
