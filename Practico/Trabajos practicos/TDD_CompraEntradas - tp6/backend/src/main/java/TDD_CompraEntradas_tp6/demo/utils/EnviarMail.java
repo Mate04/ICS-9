@@ -1,17 +1,18 @@
 package TDD_CompraEntradas_tp6.demo.utils;
 
 import TDD_CompraEntradas_tp6.demo.entities.Pedido;
-import com.resend.*;
-import com.resend.core.exception.ResendException;
-import com.resend.services.emails.model.CreateEmailOptions;
-import com.resend.services.emails.model.CreateEmailResponse;
+import jakarta.mail.*;
+import jakarta.mail.internet.*;
 
 import java.time.format.DateTimeFormatter;
+import java.util.Properties;
 import java.util.regex.Pattern;
 
 public class EnviarMail {
 
-    private static final Resend resend = new Resend("re_5WrjFDqt_GKJEoW9jPcFHyPBniKfBsSHT");
+    // 🔐 Configuración de tu cuenta Gmail
+    private static final String GMAIL_USER = "ecoharmony219@gmail.com"; // TODO: reemplazar
+    private static final String GMAIL_APP_PASSWORD = "tzmq bbco dmnc yrdo"; // TODO: reemplazar
 
     private static final Pattern EMAIL_PATTERN = Pattern.compile(
             "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}$",
@@ -32,7 +33,7 @@ public class EnviarMail {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String fechaVisita = pedido.getFechaEmision().format(formatter);
 
-        // Construimos la tabla sin columna de cantidad
+        // 🧩 Construcción de la tabla de resumen
         StringBuilder resumen = new StringBuilder();
         resumen.append("<table style=\"width:100%; border-collapse: collapse; margin-top: 10px;\">")
                 .append("<thead><tr style=\"background-color: #f4f4f4;\">")
@@ -50,45 +51,29 @@ public class EnviarMail {
         }
         resumen.append("</tbody></table>");
 
-        // Mensaje según tipo de pago
+        // 💳 Mensaje según tipo de pago
         String mensajePago = "";
         if (pedido.getTipoPago() != null) {
             switch (pedido.getTipoPago()) {
-                case EFECTIVO:
-                    mensajePago = "Recordá abonar en boletería el día de tu visita";
-                    break;
-                case MERCADO_PAGO:
-                    mensajePago = "Tu pago fue confirmado exitosamente con Mercado Pago";
-                    break;
+                case EFECTIVO -> mensajePago = "Recordá abonar en boletería el día de tu visita";
+                case MERCADO_PAGO -> mensajePago = "Tu pago fue confirmado exitosamente con Mercado Pago";
             }
         }
 
-// Mensaje según estado del pedido
+        // 🧾 Mensaje según estado del pedido
         String mensajeEstado = "";
         if (pedido.getEstado() != null) {
             switch (pedido.getEstado()) {
-                case CREADO:
-                    mensajeEstado = "Tu pedido fue creado correctamente y está siendo procesado";
-                    break;
-                case PENDIENTE_EFECTIVO:
-                    mensajeEstado = "Tu pedido está pendiente de pago en boletería. Recordá abonarlo el día de tu visita";
-                    break;
-                case PENDIENTE_MERCADO_PAGO:
-                    mensajeEstado = "Tu pedido está pendiente de confirmación de Mercado Pago. En cuanto se acredite, te avisaremos";
-                    break;
-                case FINALIZADO:
-                    mensajeEstado = "¡Tu compra fue finalizada con éxito! Te esperamos para disfrutar de tu experiencia";
-                    break;
-                case RECHAZADO:
-                    mensajeEstado = "Lamentablemente, tu pedido fue rechazado. Si creés que se trata de un error, por favor contactanos.";
-                    break;
-                default:
-                    mensajeEstado = "El estado actual de tu pedido es: " + pedido.getEstado();
-                    break;
+                case CREADO -> mensajeEstado = "Tu pedido fue creado correctamente y está siendo procesado";
+                case PENDIENTE_EFECTIVO -> mensajeEstado = "Tu pedido está pendiente de pago en boletería. Recordá abonarlo el día de tu visita";
+                case PENDIENTE_MERCADO_PAGO -> mensajeEstado = "Tu pedido está pendiente de confirmación de Mercado Pago. En cuanto se acredite, te avisaremos";
+                case FINALIZADO -> mensajeEstado = "¡Tu compra fue finalizada con éxito! Te esperamos para disfrutar de tu experiencia";
+                case RECHAZADO -> mensajeEstado = "Lamentablemente, tu pedido fue rechazado. Si creés que se trata de un error, por favor contactanos.";
+                default -> mensajeEstado = "El estado actual de tu pedido es: " + pedido.getEstado();
             }
         }
 
-// Construcción del cuerpo del mail
+        // 🧠 Construcción del cuerpo del correo
         String cuerpo = "<div style=\"font-family: Arial, sans-serif; color: #333; line-height: 1.6;\">"
                 + "<h2>¡Gracias por tu compra!</h2>"
                 + "<p>Hola " + usuario + ",</p>"
@@ -100,29 +85,38 @@ public class EnviarMail {
                 + (mensajePago.isEmpty() ? "" : "<p>" + mensajePago + "</p>")
                 + "<h3>Resumen de tu compra:</h3>"
                 + "<p><strong>Cantidad:</strong> " + pedido.getDetallesPedidos().size() + "</p>"
-                + resumen.toString()
+                + resumen
                 + "<p style=\"margin-top: 10px; font-size: 16px;\"><strong>Monto Total:</strong> $ "
                 + String.format("%.2f", pedido.getMontoTotal()) + "</p>"
-                + "<p>Gracias por confiar en nosotros. ¡Te esperamos pronto! 💫</p>"
+                + "<p>Gracias por confiar en nosotros. ¡Te esperamos pronto!</p>"
                 + "<p style=\"font-size: 12px; color: #888;\">Este correo es informativo, por favor no respondas a este mensaje.</p>"
                 + "</div>";
 
+        // ✉️ Envío del correo usando SMTP de Gmail
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.ssl.enable", "true");
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "465");
 
-        // Debug: imprimir cuerpo antes de enviar
-        System.out.println("CORREO HTML:");
-        System.out.println(cuerpo);
-
-        CreateEmailOptions params = CreateEmailOptions.builder()
-                .from("Entradas <onboarding@resend.dev>")
-                .to(usuario)
-                .subject("Confirmación de pedido #" + pedido.getId())
-                .html(cuerpo)
-                .build();
+        Session session = Session.getInstance(props, new Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(GMAIL_USER, GMAIL_APP_PASSWORD);
+            }
+        });
 
         try {
-            CreateEmailResponse data = resend.emails().send(params);
-            System.out.println("Email enviado con ID: " + data.getId());
-        } catch (ResendException e) {
+            MimeMessage message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(GMAIL_USER, "Entradas")); // nombre visible
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(usuario));
+            message.setSubject("Confirmación de pedido #" + pedido.getId());
+            message.setContent(cuerpo, "text/html; charset=utf-8");
+
+            Transport.send(message);
+            System.out.println("Correo enviado correctamente a " + usuario);
+
+        } catch (Exception e) {
             System.err.println("Error al enviar el correo: " + e.getMessage());
             e.printStackTrace();
         }
