@@ -35,7 +35,8 @@ public class PedidoController {
     }
 
     @PostMapping
-    public ConfirmarPedidoRES confirmarPedido(@Valid @RequestBody ConfirmarPedidoDTO confirmarPedidoDTO) {
+    public ConfirmarPedidoRES confirmarPedido(
+            @Valid @RequestBody ConfirmarPedidoDTO confirmarPedidoDTO) {
         this.pedidoService.confirmarPago(confirmarPedidoDTO);
         return new ConfirmarPedidoRES(true, "Se creo exitosamente el pedido", confirmarPedidoDTO.getMetodoPago());
     }

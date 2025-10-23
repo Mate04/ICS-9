@@ -94,7 +94,7 @@ public class PedidoService {
         this.pedidorepository.save(pedido);
 
         //Funcion asincrona
-        this.mailService.enviar("91461@sistemas.frc.utn.edu.ar", pedido);
+        this.mailService.enviar("luciabossio03@gmail.com", pedido);
         System.out.println("Finish");
 
 
