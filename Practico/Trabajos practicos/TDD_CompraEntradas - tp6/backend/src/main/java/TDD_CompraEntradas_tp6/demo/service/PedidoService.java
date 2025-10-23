@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import TDD_CompraEntradas_tp6.demo.controller.dto.req.ConfirmarPedidoDTO;
+import TDD_CompraEntradas_tp6.demo.utils.CantidadEntradasValidator;
 import TDD_CompraEntradas_tp6.demo.utils.FechaValidator;
 import org.springframework.stereotype.Service;
 
@@ -46,6 +47,9 @@ public class PedidoService {
     public PedidoResDTO validarDatos(ValidarDatoDTO validarDatoDTO) {
         if(!FechaValidator.isValidDate(validarDatoDTO.getFechaVisita().toString())){
             throw new IllegalArgumentException("La fecha no es un valida");
+        };
+        if(!CantidadEntradasValidator.esCantidadValida(Arrays.asList(validarDatoDTO.getVisitantes()))){
+            throw new IllegalArgumentException("La cantidad de entradas no es valida");
         };
         List<DetallePedidoDTO> detallerPedidoRes = new ArrayList<>();
         Pedido pedido = Pedido.builder()

@@ -21,13 +21,10 @@ public class FechaValidator {
             LocalDate date = LocalDate.parse(dateString, FORMATTER);
             LocalDate today = LocalDate.now();
 
-            // ✅ permite hoy o fechas futuras
             if (date.isBefore(today)) return false;
 
-            // ❌ no permitir lunes
             if (date.getDayOfWeek() == java.time.DayOfWeek.MONDAY) return false;
 
-            // ❌ no permitir feriados específicos
             if ((date.getMonthValue() == 12 && date.getDayOfMonth() == 25) ||
                     (date.getMonthValue() == 1 && date.getDayOfMonth() == 1)) return false;
 
