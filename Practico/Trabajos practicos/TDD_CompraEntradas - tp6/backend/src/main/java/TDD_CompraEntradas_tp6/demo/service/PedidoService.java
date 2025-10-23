@@ -3,6 +3,7 @@ package TDD_CompraEntradas_tp6.demo.service;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import TDD_CompraEntradas_tp6.demo.controller.dto.req.ConfirmarPedidoDTO;
 import TDD_CompraEntradas_tp6.demo.utils.CantidadEntradasValidator;
@@ -30,6 +31,11 @@ public class PedidoService {
 
     private final PedidoRepository pedidorepository;
     private final MailService mailService;
+
+    private static final Pattern EMAIL_PATTERN = Pattern.compile(
+            "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}$",
+            Pattern.CASE_INSENSITIVE
+    );
 
 
     public String[] getMetodoPago() {
@@ -80,11 +86,14 @@ public class PedidoService {
         return new PedidoResDTO(savePedido);
     }
 
-    public void confirmarPago(ConfirmarPedidoDTO confirmarPedidoDTO) {
+    public void confirmarPago(ConfirmarPedidoDTO confirmarPedidoDTO,String mail) {
 
         Pedido pedido = this.pedidorepository.findById(confirmarPedidoDTO.getIdPedido()).orElse(null);
         if (pedido == null) {
             throw new IllegalStateException("Pedido no encontrado");
+        }
+        if (mail == null || !EMAIL_PATTERN.matcher(mail).matches()) {
+            throw new MailService.InvalidEmailException("El correo electrónico '" + mail + "' no es válido.");
         }
 
         Pedido pedidoVerificado = verificarPedido(pedido, confirmarPedidoDTO.getMetodoPago());
@@ -94,7 +103,7 @@ public class PedidoService {
         this.pedidorepository.save(pedido);
 
         //Funcion asincrona
-        this.mailService.enviar("luciabossio03@gmail.com", pedido);
+        this.mailService.enviar(mail, pedido);
         System.out.println("Finish");
 
 

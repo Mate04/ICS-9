@@ -27,10 +27,7 @@ public class MailService {
     @Value("${mail.from.name:Entradas}")
     private String fromName;
 
-    private static final Pattern EMAIL_PATTERN = Pattern.compile(
-            "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}$",
-            Pattern.CASE_INSENSITIVE
-    );
+
 
     public static class InvalidEmailException extends RuntimeException {
         public InvalidEmailException(String message) { super(message); }
@@ -42,9 +39,6 @@ public class MailService {
         var pedido = pedidoRepository.findById((int) pedidoDTO.getId())
                 .orElseThrow(() -> new IllegalStateException("Pedido no encontrado"));
 
-        if (usuario == null || !EMAIL_PATTERN.matcher(usuario).matches()) {
-            throw new InvalidEmailException("El correo electrónico '" + usuario + "' no es válido.");
-        }
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String fechaVisita = pedido.getFechaEmision().format(formatter);
