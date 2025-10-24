@@ -3,7 +3,7 @@ import { api, type TipoEntrada, type Visitante } from "../services/api";
 import { v4 as uuidv4 } from "uuid";
 
 interface Paso1FormularioProps {
-  onNext: (fechaVisita: string, visitantes: Visitante[], email: string) => void;
+  onNext: (fechaVisita: string, visitantes: Visitante[]) => void;
 }
 
 interface VisitanteForm extends Visitante {
@@ -12,7 +12,6 @@ interface VisitanteForm extends Visitante {
 
 export default function Paso1Formulario({ onNext }: Paso1FormularioProps) {
   const [fechaVisita, setFechaVisita] = useState("");
-  const [email, setEmail] = useState("");
   const [visitantes, setVisitantes] = useState<VisitanteForm[]>([
     { id: uuidv4(), edad: "", tipoEntrada: "Regular" },
   ]);
@@ -91,12 +90,6 @@ export default function Paso1Formulario({ onNext }: Paso1FormularioProps) {
       }
     }
 
-    if (!email) {
-      newErrors.email = "Debe ingresar un email";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      newErrors.email = "Debe ingresar un email válido";
-    }
-
     visitantes.forEach((v, index) => {
       if (v.edad < 0) {
         newErrors[`edad-${index}`] = "Edad inválida";
@@ -121,7 +114,7 @@ export default function Paso1Formulario({ onNext }: Paso1FormularioProps) {
         tipoEntrada,
       }));
 
-      onNext(formattedDate, visitantesData, email);
+      onNext(formattedDate, visitantesData);
     } catch (error) {
       console.error("Error:", error);
     } finally {
@@ -150,36 +143,12 @@ export default function Paso1Formulario({ onNext }: Paso1FormularioProps) {
             <input
               type="date"
               value={fechaVisita}
-              onChange={(e) => {
-                const value = e.target.value;
-                const parts = value.split("-");
-                if (parts[0] && parts[0].length > 4) {
-                  parts[0] = parts[0].slice(0, 4); // se limita el año a 4 dígitos
-                }
-                setFechaVisita(parts.join("-"));
-              }}
+              onChange={(e) => setFechaVisita(e.target.value)}
               min={today}
               className="input input-bordered w-full bg-base-100 focus:outline-none focus:ring-2 focus:ring-primary h-11 sm:h-12 text-base"
             />
             {errors.fechaVisita && (
               <p className="text-error text-sm mt-1">{errors.fechaVisita}</p>
-            )}
-          </div>
-
-          {/* Email Field */}
-          <div>
-            <label className="block text-sm font-medium text-neutral mb-2">
-              Email
-            </label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="input input-bordered w-full bg-base-100 focus:outline-none focus:ring-2 focus:ring-primary h-11 sm:h-12 text-base"
-              placeholder="tu@email.com"
-            />
-            {errors.email && (
-              <p className="text-error text-sm mt-1">{errors.email}</p>
             )}
           </div>
 
@@ -269,7 +238,7 @@ export default function Paso1Formulario({ onNext }: Paso1FormularioProps) {
                           className="select select-bordered w-full bg-white focus:outline-none focus:ring-2 focus:ring-primary h-10 text-base"
                         >
                           {tiposEntrada.map((tipo) => (
-                            <option key={tipo.nombre} value={tipo.nombre}>
+                            <option key={tipo.id} value={tipo.nombre}>
                               {tipo.nombre}
                             </option>
                           ))}

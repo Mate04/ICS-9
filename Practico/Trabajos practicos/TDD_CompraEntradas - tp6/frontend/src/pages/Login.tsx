@@ -40,9 +40,9 @@ export default function Login() {
 
     setLoading(true);
 
-    // Mock login - simulate API call
     setTimeout(() => {
       localStorage.setItem("isAuthenticated", "true");
+      localStorage.setItem("userEmail", email);
       navigate("/comprar");
       setLoading(false);
     }, 800);

@@ -21,18 +21,17 @@ export default function FormularioMultipaso() {
 
   const handlePaso1Complete = async (
     fecha: string,
-    visitantes: Visitante[],
-    email: string
+    visitantes: Visitante[]
   ) => {
+    const email = localStorage.getItem("userEmail");
     setLoading(true);
     try {
       const resultado = await api.validarDatos(fecha, visitantes);
       setPedidoValidado(resultado);
 
-      //guardamos la fecha, la cantidad de entradas y el email
       setFechaEvento(fecha);
       setCantidadEntradas(visitantes.length);
-      setEmailUsuario(email);
+      setEmailUsuario(email || "");
 
       setPasoActual(2);
     } catch (error) {
