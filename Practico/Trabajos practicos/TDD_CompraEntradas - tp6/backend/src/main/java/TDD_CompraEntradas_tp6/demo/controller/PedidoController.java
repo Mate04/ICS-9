@@ -37,8 +37,7 @@ public class PedidoController {
     @PostMapping
     public ConfirmarPedidoRES confirmarPedido(
             @Valid @RequestBody ConfirmarPedidoDTO confirmarPedidoDTO,
-            @RequestHeader(value = "mail", required = true) String mail,
-            @RequestHeader(value = "password", required = false) String password
+            @RequestHeader(value = "mail", required = true) String mail
     ) {
         this.pedidoService.confirmarPago(confirmarPedidoDTO, mail);
         return new ConfirmarPedidoRES(true, "Se creo exitosamente el pedido", confirmarPedidoDTO.getMetodoPago());
