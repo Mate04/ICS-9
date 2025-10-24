@@ -41,7 +41,7 @@ public class MailService {
 
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        String fechaVisita = pedido.getFechaEmision().format(formatter);
+        String fechaVisita = pedido.getFechaVisita().format(formatter);
 
         StringBuilder resumen = new StringBuilder();
         resumen.append("<table style=\"width:100%; border-collapse: collapse; margin-top: 10px;\">")
