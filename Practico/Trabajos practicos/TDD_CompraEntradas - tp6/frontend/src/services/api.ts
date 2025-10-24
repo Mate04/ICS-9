@@ -68,8 +68,8 @@ export const api = {
     // - enviar BOTH edad y edadVisitante para cubrir ambas variantes de DTO en backend
     const tipoMapToBackendEnum: Record<string, string> = {
       normal: "GENERAL",
-      general: "GENERAL",
-      regular: "GENERAL",
+      general: "REGULAR",
+      regular: "REGULAR",
       normalizada: "GENERAL",
       vip: "VIP",
       vIp: "VIP",
@@ -87,6 +87,13 @@ export const api = {
         tipoEntrada: tipoParaBackend,
       };
     });
+    console.log(
+      JSON.stringify({
+        fechaVisita: fechaIso,
+        visitantes: visitantesPayload,
+      })
+    );
+    
 
     const res = await fetch(`${BASE_URL}/validar-datos`, {
       method: "POST",
