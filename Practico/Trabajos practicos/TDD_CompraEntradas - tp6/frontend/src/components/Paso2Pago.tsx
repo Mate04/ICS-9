@@ -102,8 +102,7 @@ export default function Paso2Pago({
   };
 
   return (
-    // mobile: ancho completo; en sm+ limitar max width
-    <div className="w-full max-w-full sm:max-w-3xl mx-0 px-4 sm:px-0">
+    <div className="w-full max-w-3xl mx-auto px-4 sm:px-0">
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 sm:p-6">
         <h2 className="text-lg sm:text-xl md:text-2xl font-semibold text-neutral mb-2">
           Resumen de compra

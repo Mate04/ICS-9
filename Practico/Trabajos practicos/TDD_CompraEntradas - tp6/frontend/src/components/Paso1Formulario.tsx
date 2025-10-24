@@ -132,8 +132,7 @@ export default function Paso1Formulario({ onNext }: Paso1FormularioProps) {
   const today = new Date().toISOString().split("T")[0];
 
   return (
-    // mobile: usar ancho completo; en pantallas sm+ limitar a 3xl
-    <div className="w-full max-w-full sm:max-w-3xl mx-0 px-4 sm:px-0">
+    <div className="w-full max-w-3xl mx-auto px-4 sm:px-0">
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 sm:p-6">
         <h2 className="text-lg sm:text-xl md:text-2xl font-semibold text-neutral mb-2">
           Información de visita
