@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { api, type TipoEntrada, type Visitante } from "../services/api";
+import { v4 as uuidv4 } from "uuid";
 
 interface Paso1FormularioProps {
   onNext: (fechaVisita: string, visitantes: Visitante[], email: string) => void;
@@ -13,7 +14,7 @@ export default function Paso1Formulario({ onNext }: Paso1FormularioProps) {
   const [fechaVisita, setFechaVisita] = useState("");
   const [email, setEmail] = useState("");
   const [visitantes, setVisitantes] = useState<VisitanteForm[]>([
-    { id: crypto.randomUUID(), edad: 0, tipoEntrada: "Regular" },
+    { id: uuidv4(), edad: 0, tipoEntrada: "Regular" },
   ]);
   const [tiposEntrada, setTiposEntrada] = useState<TipoEntrada[]>([]);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
@@ -38,7 +39,7 @@ export default function Paso1Formulario({ onNext }: Paso1FormularioProps) {
     }
     setVisitantes([
       ...visitantes,
-      { id: crypto.randomUUID(), edad: 0, tipoEntrada: "Regular" },
+      { id: uuidv4(), edad: 0, tipoEntrada: "Regular" },
     ]);
     setErrors({ ...errors, maxVisitantes: "" });
   };

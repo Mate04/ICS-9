@@ -14,11 +14,11 @@ export default defineConfig({
     port: 5173,
     host: true, // Equivalente a '0.0.0.0'
     watch: {
-      usePolling: true // Mejor hot-reload en Docker
+      usePolling: true, // Mejor hot-reload en Docker
     },
     proxy: {
       "/pedido": {
-         target: process.env.VITE_BACKEND_URL || "http://localhost:8080", // ← Cambio principal: usar nombre del servicio Docker
+        target: process.env.VITE_BACKEND_URL || "http://localhost:8080", // ← Cambio principal: usar nombre del servicio Docker
         changeOrigin: true,
         secure: false,
         rewrite: (path) => path.replace(/^\/pedido/, "/pedido"),

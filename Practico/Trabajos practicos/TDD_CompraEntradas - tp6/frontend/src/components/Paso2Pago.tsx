@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { api, type PedidoValidado } from "../services/api";
+import mpLogo from "../assets/MP_RGB_HANDSHAKE_color_vertical.svg";
+import cashIcon from "../assets/dollar-bills-pay-money-cash.svg";
 
 interface Paso2PagoProps {
   pedidoValidado: PedidoValidado;
@@ -79,6 +81,24 @@ export default function Paso2Pago({
     if (metodoPagoSeleccionado === "Mercado Pago")
       return "Pagar con Mercado Pago";
     return "Confirmar compra";
+  };
+
+  const getBotonEstilo = () => {
+    if (loading) return "btn-primary text-white";
+    if (metodoPagoSeleccionado === "Mercado Pago")
+      return "bg-[#FFE300] hover:bg-[#FFE300]/90 text-black border-[#FFE300] hover:border-[#FFE300]/90";
+    return "btn-primary text-white";
+  };
+
+  const getPaymentIcon = (metodo: string) => {
+    switch (metodo) {
+      case "Mercado Pago":
+        return <img src={mpLogo} alt="Mercado Pago" className="h-6 w-auto" />;
+      case "Efectivo":
+        return <img src={cashIcon} alt="Efectivo" className="h-6 w-auto" />;
+      default:
+        return null;
+    }
   };
 
   return (
@@ -185,9 +205,12 @@ export default function Paso2Pago({
                         <div className="w-3 h-3 rounded-full bg-primary"></div>
                       )}
                     </div>
-                    <span className="font-medium text-neutral text-sm">
-                      {metodo}
-                    </span>
+                    <div className="flex items-center gap-2">
+                      {getPaymentIcon(metodo)}
+                      <span className="font-medium text-neutral text-sm">
+                        {metodo}
+                      </span>
+                    </div>
                   </div>
                 </button>
               ))}
@@ -210,12 +233,15 @@ export default function Paso2Pago({
             type="button"
             onClick={handleConfirmar}
             disabled={loading || !metodoPagoSeleccionado}
-            className="btn btn-primary text-white sm:px-8 disabled:opacity-50 h-12 w-full sm:w-auto"
+            className={`btn ${getBotonEstilo()} sm:px-8 disabled:opacity-50 h-12 w-full sm:w-auto`}
           >
             {loading ? (
               <span className="loading loading-spinner loading-sm"></span>
             ) : (
-              getBotonTexto()
+              <div className="flex items-center gap-2">
+                {getPaymentIcon(metodoPagoSeleccionado)}
+                <span>{getBotonTexto()}</span>
+              </div>
             )}
           </button>
         </div>
