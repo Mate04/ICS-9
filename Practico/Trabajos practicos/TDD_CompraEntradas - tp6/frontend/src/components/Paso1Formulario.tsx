@@ -14,7 +14,7 @@ export default function Paso1Formulario({ onNext }: Paso1FormularioProps) {
   const [fechaVisita, setFechaVisita] = useState("");
   const [email, setEmail] = useState("");
   const [visitantes, setVisitantes] = useState<VisitanteForm[]>([
-    { id: uuidv4(), edad: 0, tipoEntrada: "Regular" },
+    { id: uuidv4(), edad: "", tipoEntrada: "Regular" },
   ]);
   const [tiposEntrada, setTiposEntrada] = useState<TipoEntrada[]>([]);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
@@ -39,7 +39,7 @@ export default function Paso1Formulario({ onNext }: Paso1FormularioProps) {
     }
     setVisitantes([
       ...visitantes,
-      { id: uuidv4(), edad: 0, tipoEntrada: "Regular" },
+      { id: uuidv4(), edad: "", tipoEntrada: "Regular" },
     ]);
     setErrors({ ...errors, maxVisitantes: "" });
   };
@@ -98,7 +98,7 @@ export default function Paso1Formulario({ onNext }: Paso1FormularioProps) {
     }
 
     visitantes.forEach((v, index) => {
-      if (!v.edad || v.edad <= 0) {
+      if (v.edad < 0) {
         newErrors[`edad-${index}`] = "Edad inválida";
       }
     });
@@ -230,14 +230,18 @@ export default function Paso1Formulario({ onNext }: Paso1FormularioProps) {
                         </label>
                         <input
                           type="number"
-                          min="1"
+                          min="0"
                           max="120"
-                          value={visitante.edad || ""}
+                          value={
+                            visitante.edad !== undefined ? visitante.edad : ""
+                          }
                           onChange={(e) =>
                             actualizarVisitante(
                               visitante.id,
                               "edad",
-                              Number.parseInt(e.target.value) || 0
+                              e.target.value === ""
+                                ? ""
+                                : Number.parseInt(e.target.value)
                             )
                           }
                           className="input input-bordered w-full bg-white focus:outline-none focus:ring-2 focus:ring-primary h-10 text-base"
