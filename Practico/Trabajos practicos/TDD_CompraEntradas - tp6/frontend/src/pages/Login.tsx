@@ -49,9 +49,9 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-base-100 flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
-        <div className="text-center mb-6 sm:mb-8">
+    <div className="min-h-screen bg-base-100 flex items-center justify-center p-0">
+      <div className="w-full max-w-full sm:max-w-md mx-0">
+        <div className="text-center mb-6 sm:mb-8 px-4">
           <h1 className="text-3xl sm:text-4xl font-bold text-primary mb-1 sm:mb-2">
             EcoPark
           </h1>
@@ -60,7 +60,7 @@ export default function Login() {
           </p>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 sm:p-6 md:p-8">
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 sm:p-6 md:p-8 mx-0">
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
               <label className="block text-sm font-medium text-neutral mb-2">
@@ -130,7 +130,7 @@ export default function Login() {
           </div>
         </div>
 
-        <p className="text-center text-xs sm:text-sm text-gray-500 mt-6">
+        <p className="text-center text-xs sm:text-sm text-gray-500 mt-6 px-4">
           ¿No tienes cuenta?{" "}
           <a href="#" className="text-primary hover:underline font-medium">
             Regístrate aquí

@@ -1,3 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* ensure root and body occupy full width on mobile */
+html,
+body,
+#root {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
