@@ -12,6 +12,7 @@ export default defineConfig({
   },
   server: {
     port: 5173,
+    host: true,
     proxy: {
       "/pedido": {
         target: "http://localhost:8080",
@@ -20,5 +21,6 @@ export default defineConfig({
         rewrite: (path) => path.replace(/^\/pedido/, "/pedido"),
       },
     },
+    
   },
 });
