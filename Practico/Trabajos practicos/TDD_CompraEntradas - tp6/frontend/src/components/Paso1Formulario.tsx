@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import { api, type TipoEntrada, type Visitante } from "../services/api"
 
 interface Paso1FormularioProps {
-  onNext: (fechaVisita: string, visitantes: Visitante[]) => void
+  onNext: (fechaVisita: string, visitantes: Visitante[], email: string) => void
 }
 
 interface VisitanteForm extends Visitante {
@@ -11,6 +11,7 @@ interface VisitanteForm extends Visitante {
 
 export default function Paso1Formulario({ onNext }: Paso1FormularioProps) {
   const [fechaVisita, setFechaVisita] = useState("")
+  const [email, setEmail] = useState("")
   const [visitantes, setVisitantes] = useState<VisitanteForm[]>([
     { id: crypto.randomUUID(), edad: 0, tipoEntrada: "Regular" },
   ])
@@ -80,7 +81,11 @@ export default function Paso1Formulario({ onNext }: Paso1FormularioProps) {
       }
     }
 
-    
+    if (!email) {
+      newErrors.email = "Debe ingresar un email"
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      newErrors.email = "Debe ingresar un email válido"
+    }
 
     visitantes.forEach((v, index) => {
       if (!v.edad || v.edad <= 0) {
@@ -103,7 +108,7 @@ export default function Paso1Formulario({ onNext }: Paso1FormularioProps) {
       const formattedDate = fechaVisita.replace(/-/g, "")
       const visitantesData = visitantes.map(({ edad, tipoEntrada }) => ({ edad, tipoEntrada }))
 
-      onNext(formattedDate, visitantesData)
+      onNext(formattedDate, visitantesData, email)
     } catch (error) {
       console.error("Error:", error)
     } finally {
@@ -115,11 +120,11 @@ export default function Paso1Formulario({ onNext }: Paso1FormularioProps) {
 
   return (
     <div className="w-full max-w-3xl mx-auto">
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 sm:p-6 md:p-8">
-        <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold text-neutral mb-1">Información de visita</h2>
-        <p className="text-sm text-gray-500 mb-6 sm:mb-8">Completa los datos para tu visita al parque</p>
+      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 sm:p-6">
+        <h2 className="text-lg sm:text-xl md:text-2xl font-semibold text-neutral mb-2">Información de visita</h2>
+        <p className="text-sm text-gray-500 mb-4 sm:mb-6">Completa los datos para tu visita al parque</p>
 
-        <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
+        <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
           {/* Date Selection */}
           <div>
             <label className="block text-sm font-medium text-neutral mb-2">Fecha de visita</label>
@@ -135,23 +140,36 @@ export default function Paso1Formulario({ onNext }: Paso1FormularioProps) {
                 setFechaVisita(parts.join("-"))
               }}
               min={today}
-              className="input input-bordered w-full bg-base-100 focus:outline-none focus:ring-2 focus:ring-primary h-12"
+              className="input input-bordered w-full bg-base-100 focus:outline-none focus:ring-2 focus:ring-primary h-11 sm:h-12 text-base"
             />
             {errors.fechaVisita && <p className="text-error text-sm mt-1">{errors.fechaVisita}</p>}
           </div>
 
+          {/* Email Field */}
+          <div>
+            <label className="block text-sm font-medium text-neutral mb-2">Email</label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="input input-bordered w-full bg-base-100 focus:outline-none focus:ring-2 focus:ring-primary h-11 sm:h-12 text-base"
+              placeholder="tu@email.com"
+            />
+            {errors.email && <p className="text-error text-sm mt-1">{errors.email}</p>}
+          </div>
+
           {/* Visitors List */}
           <div>
-            <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center justify-between mb-3">
               <label className="block text-sm font-medium text-neutral">Visitantes ({visitantes.length}/10)</label>
               <button
                 type="button"
                 onClick={agregarVisitante}
                 disabled={visitantes.length >= 10}
-                className="btn btn-circle btn-md btn-primary text-white disabled:opacity-50"
+                className="btn btn-circle btn-sm btn-primary text-white disabled:opacity-50"
                 aria-label="Agregar visitante"
               >
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                   <path
                     fillRule="evenodd"
                     d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
@@ -161,15 +179,15 @@ export default function Paso1Formulario({ onNext }: Paso1FormularioProps) {
               </button>
             </div>
 
-            {errors.maxVisitantes && <p className="text-error text-sm mb-4">{errors.maxVisitantes}</p>}
+            {errors.maxVisitantes && <p className="text-error text-sm mb-3">{errors.maxVisitantes}</p>}
 
             <div className="space-y-3">
               {visitantes.map((visitante, index) => (
-                <div key={visitante.id} className="bg-base-100 rounded-xl p-4 sm:p-5 border border-gray-100">
-                  <div className="flex items-start gap-3 sm:gap-4">
-                    <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                <div key={visitante.id} className="bg-base-100 rounded-xl p-4 border border-gray-100">
+                  <div className="flex items-start gap-3">
+                    <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <div>
-                        <label className="block text-xs font-medium text-gray-600 mb-1.5">Edad</label>
+                        <label className="block text-sm font-medium text-gray-600 mb-2">Edad</label>
                         <input
                           type="number"
                           min="1"
@@ -178,20 +196,20 @@ export default function Paso1Formulario({ onNext }: Paso1FormularioProps) {
                           onChange={(e) =>
                             actualizarVisitante(visitante.id, "edad", Number.parseInt(e.target.value) || 0)
                           }
-                          className="input input-bordered w-full bg-white focus:outline-none focus:ring-2 focus:ring-primary h-11 text-base"
+                          className="input input-bordered w-full bg-white focus:outline-none focus:ring-2 focus:ring-primary h-10 text-base"
                           placeholder="Ej: 25"
                         />
                         {errors[`edad-${index}`] && (
-                          <p className="text-error text-xs mt-1">{errors[`edad-${index}`]}</p>
+                          <p className="text-error text-sm mt-1">{errors[`edad-${index}`]}</p>
                         )}
                       </div>
 
                       <div>
-                        <label className="block text-xs font-medium text-gray-600 mb-1.5">Tipo de entrada</label>
+                        <label className="block text-sm font-medium text-gray-600 mb-2">Tipo de entrada</label>
                         <select
                           value={visitante.tipoEntrada}
                           onChange={(e) => actualizarVisitante(visitante.id, "tipoEntrada", e.target.value)}
-                          className="select select-bordered w-full bg-white focus:outline-none focus:ring-2 focus:ring-primary h-11 text-base"
+                          className="select select-bordered w-full bg-white focus:outline-none focus:ring-2 focus:ring-primary h-10 text-base"
                         >
                           {tiposEntrada.map((tipo) => (
                             <option key={tipo.nombre} value={tipo.nombre}>
@@ -206,11 +224,11 @@ export default function Paso1Formulario({ onNext }: Paso1FormularioProps) {
                       <button
                         type="button"
                         onClick={() => eliminarVisitante(visitante.id)}
-                        className="btn btn-ghost btn-sm btn-circle text-gray-400 hover:text-error mt-7"
+                        className="btn btn-ghost btn-sm btn-circle text-gray-400 hover:text-error mt-6"
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
-                          className="h-5 w-5"
+                          className="h-4 w-4"
                           viewBox="0 0 20 20"
                           fill="currentColor"
                         >

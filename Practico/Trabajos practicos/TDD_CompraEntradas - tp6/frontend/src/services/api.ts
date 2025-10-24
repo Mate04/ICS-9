@@ -25,6 +25,7 @@ export interface PedidoValidado {
 export interface ConfirmarPedidoRequest {
   idPedido: number;
   metodoPago: string;
+  email: string;
 }
 
 const BASE_URL = "/pedido"; // relativo para que Vite proxy lo redirija a localhost:8080
@@ -170,9 +171,18 @@ export const api = {
 
     const payload = { ...data, metodoPago: metodoParaBackend };
 
+    console.log("Enviando email en header:", data.email);
+    console.log("Headers completos:", { 
+      "Content-Type": "application/json",
+      "mail": data.email
+    });
+
     const res = await fetch(`${BASE_URL}`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { 
+        "Content-Type": "application/json",
+        "mail": data.email
+      },
       body: JSON.stringify(payload),
     });
 

@@ -17,18 +17,22 @@ export default function FormularioMultipaso() {
   const [fechaEvento, setFechaEvento] = useState<string>("");
   const [cantidadEntradas, setCantidadEntradas] = useState<number>(0);
 
+  const [emailUsuario, setEmailUsuario] = useState<string>("");
+
   const handlePaso1Complete = async (
     fecha: string,
-    visitantes: Visitante[]
+    visitantes: Visitante[],
+    email: string
   ) => {
     setLoading(true);
     try {
       const resultado = await api.validarDatos(fecha, visitantes);
       setPedidoValidado(resultado);
 
-      //guardamos la fecha y la cantidad de entradas
+      //guardamos la fecha, la cantidad de entradas y el email
       setFechaEvento(fecha);
       setCantidadEntradas(visitantes.length);
+      setEmailUsuario(email);
 
       setPasoActual(2);
     } catch (error) {
@@ -54,21 +58,21 @@ export default function FormularioMultipaso() {
   };
 
   return (
-    <div className="min-h-screen bg-base-100 py-6 sm:py-12 px-4">
+    <div className="min-h-screen bg-base-100 py-3 sm:py-4 md:py-6 px-2 sm:px-4">
       {/* Header */}
-      <div className="max-w-3xl mx-auto mb-6 sm:mb-8">
-        <h1 className="text-3xl sm:text-4xl font-bold text-primary mb-1 sm:mb-2">
+      <div className="max-w-3xl mx-auto mb-4 sm:mb-6 px-1">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary mb-1 sm:mb-2">
           EcoPark
         </h1>
         <p className="text-sm sm:text-base text-gray-600">Compra de entradas</p>
       </div>
 
       {/* Progress Indicator */}
-      <div className="max-w-3xl mx-auto mb-6 sm:mb-8">
-        <div className="flex items-center justify-center gap-2 sm:gap-4">
-          <div className="flex items-center gap-2">
+      <div className="max-w-3xl mx-auto mb-4 sm:mb-6 px-2">
+        <div className="flex items-center justify-center gap-1 sm:gap-2 md:gap-4">
+          <div className="flex items-center gap-1">
             <div
-              className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-semibold text-sm ${
+              className={`w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center font-semibold text-xs sm:text-sm ${
                 pasoActual === 1
                   ? "bg-primary text-white"
                   : "bg-success text-white"
@@ -85,11 +89,11 @@ export default function FormularioMultipaso() {
             </span>
           </div>
 
-          <div className="w-12 sm:w-16 h-0.5 bg-gray-300"></div>
+          <div className="w-6 sm:w-8 md:w-12 h-0.5 bg-gray-300 flex-shrink-0"></div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1">
             <div
-              className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-semibold text-sm ${
+              className={`w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center font-semibold text-xs sm:text-sm ${
                 pasoActual === 2
                   ? "bg-primary text-white"
                   : "bg-gray-300 text-gray-500"
@@ -120,6 +124,7 @@ export default function FormularioMultipaso() {
           {pasoActual === 2 && pedidoValidado && (
             <Paso2Pago
               pedidoValidado={pedidoValidado}
+              emailUsuario={emailUsuario}
               onBack={handleVolver}
               onConfirm={handleConfirmarCompra}
             />
@@ -129,10 +134,10 @@ export default function FormularioMultipaso() {
       {/*NUEVO ELEMENTO: Modal de Confirmación de Compra (usando DaisyUI) */}
       {isModalOpen && pedidoValidado && (
         <div className="modal modal-open">
-          <div className="modal-box text-center">
+          <div className="modal-box text-center max-w-md sm:max-w-lg mx-4">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="mx-auto h-16 w-16 text-success"
+              className="mx-auto h-12 w-12 sm:h-16 sm:w-16 text-success"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -144,53 +149,55 @@ export default function FormularioMultipaso() {
                 d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
               />
             </svg>
-            <h3 className="font-bold text-lg text-success mt-4">
+            <h3 className="font-bold text-base sm:text-lg text-success mt-3 sm:mt-4">
               ¡Compra Confirmada!
             </h3>
-            <p className="py-4 text-gray-700">
+            <p className="py-3 sm:py-4 text-sm sm:text-base text-gray-700">
               Se ha enviado un correo electrónico de confirmación con los
               detalles de tu pedido.
             </p>
-            <div className="bg-base-200 p-4 rounded-lg my-4 text-left">
-              <p className="font-bold text-base mb-1 text-neutral">
+            <div className="bg-base-200 p-3 sm:p-4 rounded-lg my-3 sm:my-4 text-left">
+              <p className="font-bold text-sm sm:text-base mb-2 text-neutral">
                 Detalles del Pedido:
               </p>
-              {fechaEvento && (
-                <p>
-                  <strong>Fecha del Evento:</strong>
+              <div className="space-y-1 sm:space-y-2">
+                {fechaEvento && (
+                  <p className="text-xs sm:text-sm">
+                    <strong>Fecha del Evento:</strong>
+                    <span className="text-neutral font-medium ml-1">
+                      {/* Formato DD/MM/AAAA usando substrings del formato AAAAMMDD */}
+                      {`${fechaEvento.substring(6, 8)}/${fechaEvento.substring(
+                        4,
+                        6
+                      )}/${fechaEvento.substring(0, 4)}`}
+                    </span>
+                  </p>
+                )}
+                <p className="text-xs sm:text-sm">
+                  <strong>Cantidad de Entradas:</strong>
                   <span className="text-neutral font-medium ml-1">
-                    {/* Formato DD/MM/AAAA usando substrings del formato AAAAMMDD */}
-                    {`${fechaEvento.substring(6, 8)}/${fechaEvento.substring(
-                      4,
-                      6
-                    )}/${fechaEvento.substring(0, 4)}`}
+                    {cantidadEntradas}
                   </span>
                 </p>
-              )}
-              <p>
-                <strong>Cantidad de Entradas:</strong>
-                <span className="text-neutral font-medium ml-1">
-                  {cantidadEntradas}
-                </span>
-              </p>
 
-              <p>
-                <strong>N° Pedido:</strong>{" "}
-                <span className="text-primary font-mono">
-                  {pedidoValidado.idPedido}
-                </span>
-              </p>
+                <p className="text-xs sm:text-sm">
+                  <strong>N° Pedido:</strong>{" "}
+                  <span className="text-primary font-mono">
+                    {pedidoValidado.idPedido}
+                  </span>
+                </p>
 
-              <p>
-                <strong>Total:</strong>{" "}
-                <span className="font-bold text-xl text-primary">
-                  {pedidoValidado.importeTotal} ARS
-                </span>
-              </p>
+                <p className="text-sm sm:text-base">
+                  <strong>Total:</strong>{" "}
+                  <span className="font-bold text-lg sm:text-xl text-primary">
+                    {pedidoValidado.importeTotal} ARS
+                  </span>
+                </p>
+              </div>
             </div>
             <div className="modal-action justify-center">
               <button
-                className="btn btn-primary"
+                className="btn btn-primary w-full sm:w-auto"
                 onClick={handleCerrarModalYNavegar}
               >
                 Ir a la Página Principal
