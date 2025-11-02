@@ -5,7 +5,7 @@ services:
     container_name: dbHarmoniApp
     image: postgres:latest
     volumes:
-      - dbHarmoniApp:/var/lib/postgresql/data
+      - dbHarmoniApp:/var/lib/postgresql/data1
       - ./backend/initdb:/docker-entrypoint-initdb.d
     restart: always
     environment:
