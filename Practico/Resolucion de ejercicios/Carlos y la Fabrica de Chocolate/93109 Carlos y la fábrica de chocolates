@@ -155,3 +155,20 @@ Mensaje de error “Estado no válido” |
 |  |  |  |
 
     Casos de prueba:
+
+| ID | Clases de eq. | Prioridad  | Nombre | Precondiciones | Pasos | Salida esperada |
+| --- | --- | --- | --- | --- | --- | --- |
+| CP-Temp-001 |  | Alta | Prueba inicio de templado con aspecto opaco y textura suave exitosa |     Usuario ***“WillyW”***  ***tiene una sesión iniciada*** y permisos deben estar previamente cargados al sistema
+    El usuario debe estar logueado 
+    Aspecto***s Opaco*** deben estar previamente cargados
+    Textura ***Suave*** debe estar previamente cargado 
+    ***La fecha y hora actuales están cargadas***
+La máquina debe estar en estado reposo con cacao cargado  |     1) El usuario selecciona “Iniciar Templado” 
+    2) El usuario indica la fecha de finalización ***25/11/2025***
+    3) El usuario indica la hora de finalización
+***12:30***
+    4) El usuario selecciona la opción “Opaco”
+5) El usuario selecciona la opción “Suave”
+6) El usuario ingresa 45 Grados celsius
+ 7) El usuario confirma el inicio del templado  | 9) La app muestra el mensaje “El templado finalizará el día 25/11/2025 a las 12:30” |
+|  |  |  |  |  |  |  |
