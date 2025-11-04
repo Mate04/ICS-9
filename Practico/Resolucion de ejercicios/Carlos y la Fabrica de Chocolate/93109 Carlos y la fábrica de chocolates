@@ -1,0 +1,157 @@
+# Charlie y la fábrica de Chocolate
+
+# Chocolate
+
+## US: Controlar Máquina de torrefacción
+
+     Clases de equivalencia de entrada: 
+
+| Condición externa  | Clases de eq. válidas | Clases de eq. inválidas  |
+| --- | --- | --- |
+| Iniciar Sesión | 1) Usuario válido, correspondiente con Responsable de tratamiento | 2) Usuario ***no logueado***, correspondiente con Responsable de tratamiento
+***3) Usuario sin permisos de RT***  |
+| Temperatura  | 3) Número entero 
+≤120
+≥150 | 4) Caracteres no numéricos → ***Otro valor***
+5) Campo vacío → ***Valor no ingresado***
+6) Número ***entero*** <150
+7) Número ***entero*** >120
+8) ***Valor no entero ¿Qué pasa si pongo float?*** |
+| Tiempo de tostado | 8) ~~Tiempo en minutos (MM:SS)~~ ~~con intervalos de 30 segundos~~  ***Número Float con fracción de 0.5 o 0.0***
+***Valor ≤*** 25   
+***Valor*** ≥ 10 | 9) Caracteres no numéricos → ***Otro valor***
+10) Campo vacío → ***Valor no ingresado***
+11) Minutos < 10
+12) Minutos > 25
+13) ~~Segundos ≠ 00 o 30~~ ***Fracción distinta de 0.5 o 0.0***
+ |
+| Intensidad del sabor | 14) Selección entre valores [Suave, Medio, Intenso, Muy Intenso] 
+***Se pueden separar pero no es necesario ya que el comportamiento va a ser el mismo*** | 15) Campo vacío
+16) No seleccionar |
+| Estado de la máquina | ***17) En reposo cargada de granoso de cacao***  | ***18) Sin carga de granos de cacao
+19) En funcionamiento 
+20) Apagada
+21) Otro estado*** |
+| ~~Confirmación~~  | ~~Selección (onClick) confirmar~~ | ~~Campo no seleccionado~~ |
+
+    Clases de equivalencia de Salida:
+
+| Inicio de Torrefacción | 22) Mensaje de éxito de inicio de torrefacción | 23) Mensaje de error de usuario no logueado |
+| --- | --- | --- |
+|  |  | 24) Mensaje de usuario sin permisos |
+|  |  | 25) Mensaje de error de temperatura incorrecta  |
+|  |  | 26) Mensaje de error de duración incorrecta |
+|  |  | 27) Mensaje de error de intensidad incorrecta |
+|  |  | 28) Mensaje de error indicando que la máquina está iniciada |
+|  |  | 29) Mensaje de error indicando que la máquina no está cargada |
+|  |  | 30) Mensaje de error indicando que la máquina está apagada |
+
+     ***Si hay un rol específico a cargo del proceso → Debe estar logueado e iniciar sesión
+    Es necesario separar los seleccionables (ej: intensidad de tostado) si pueden tener un comportamiento distinto → Si se dan cambios de estado (ej estado taxi, taxi mobile)
+    Generalmente cuando tengo varios roles dentro de la app
+    Si mencionan como condición un estado este tiene que tenerse en cuenta para las clases de equivalencia → Luego se usa en las precondiciones también
+    También debe contar con los permisos correspondientes. Dos clases de eq. inválidas:*** 
+
+- ***No inicia sesión***
+- ***No cuenta con permisos***
+
+    ***Tratá de identificar todos los roles que salgan, puedan ejercer las distintas funciones
+    Estado → Si sale en criterio de aceptación. Quiero probar que arranque la máquina 
+    Para clases de salida se pone explícitamente que dice el mensaje. Después se copia en la salida esperada para mantener consistencia
+    Del enunciado pueden salir cuestiones de formato. Si hay inconsistencia priorizar la US
+    Dividimos en clases de equivalencia si tenemos salidas diferentes o reglas de negocio que así lo indiquen
+    TODO al límite***
+
+     ***ID/Clases de eq./Prioridad/Nombre/Precondiciones/Pasos/Salida Esperada***
+
+    Coherencia con el caso de estudio
+
+    ***Para casos de prueba ejecutamos un proceso completo teniendo en cuenta las clases de equivalencia definidas
+    Para el nombre poner el escenario en que se ejecuta (Exitoso, Fracaso)
+    Que el objetivo este claro en el nombre
+    TODOS los datos precargados van a precondiciones
+    En función de la estrategia veo como testeo ¿?
+    Para escribir las pruebas me paro en la clase de equivalencia 
+    La salida esperada sigue la numeración de los pasos
+    Se deben incluir en los mensajes de salida información sobre lo que estamos probando (ej: monto de una venta u hora de finalización de un proceso)
+    Si tengo un despliegue de front es necesario poner la salida (ej: despliegue de EcoHarmony para cargar). Para una selección no 
+    Las clases de salida se muestran al FINALIZAR la ejecución
+    Tener la menor cantidad de casos de prueba probando la mayor cantidad de clases de eq.***
+
+| ID Caso de prueba | Clases de eq. | Nombre del caso de prueba | Prioridad | Precondiciones | Pasos | Resultado esperado |
+| --- | --- | --- | --- | --- | --- | --- |
+| CP-US-Torr-001 |  |  | Alta | Responsable de Tratamiento logueado
+Opción ”Ingresar temperatura” seleccionada | 1) Ingresar 130 en el campo “Temperatura [Celsius]”
+2) Seleccionar siguiente | El sistema acepta el valor ingresado |
+|  |  |  |  |  |  |  |
+
+## Solución pizarrón:
+
+| Prioridad | C.E. | Nombre | Precondiciones | Pasos | Salida esperada |
+| --- | --- | --- | --- | --- | --- |
+| Alta | 14, 1, 24, 1, 7, 10, 25 | Ejecutar un proceso de torrefacción exitoso con intensidad suave | Usuario “Carlos” logueado y con permisos de máquina de torrefacción
+La máquina de torrefacción está prendida, en reposo y cargada de granos de cacao
+Fecha actual 4/11/2025 y hora 12:00
+Listado de intensidades cargado como [Suave, medio, intenso, muy intenso] | 1) Hacer click en el botón “Iniciar proceso de torrefacción”
+2) Ingresar temperatura 120
+3) Ingresar como tiempo de torrefacción 10 minutos y 00 segundos
+4) Seleccionar como intensidad de sabor “Suave”
+5) Hacer click en el botón “Confirmar proceso de torrefacción” | 6) Mensaje de finalización de proceso de torrefacción: 
+”4/11/2025 hora de finalización: 12:10” |
+|  |  |  |  |  |  |
+
+## US: Iniciar Templado
+
+| Condición externa | Clases de eq. válidas | Clases de eq. inválidas |
+| --- | --- | --- |
+| ~~Iniciar sesión~~
+***Usuario logueado*** | 1) Inicia sesión con permisos de Responsable de elaboración  | 2) Usuario no está logueado
+3) Usuario no tiene permiso de RE |
+| Fecha enfriamiento | 4) Fecha inicio de enfriamiento DD/MM/AAAA ***actual y menor a actual + 5 días*** ~~y hora HH:MM~~ | 5) Fecha en formato erróneo/no válido
+6) Fecha mayor a 5 días desde la fecha actual  
+~~7) Hora en formato erróneo/no válido~~ 
+8) No ingresa fecha 
+~~9) No ingresa hora~~
+***10) Fecha anterior a la actual
+11) No ingresa fecha***  |
+| ***Hora enfriamiento*** | ***HH:MM con HH número entero positivo entre 00 y 23 y MM con número entero positivo entre 00 y 59. Si fecha es igual a la actual la hora debe ser posterior a la actual*** | 12) Hora menor a la hora actual (si fecha == actual)
+13) Hora en formato erróneo/no válido 
+14) No ingresa hora |
+| Tiempo de enfriamiento  | 10) Número entero ≥ 40 
+ Número entero ≤ 120
+ | 12) !Int
+13) Número entero > 120
+14) Número entero < 40
+15) No ingresa valor
+***16) Otro valor*** |
+| Aspecto  | 16) Selección [Opaco, Brillante] | 17) No selecciona valor
+***18) Otro valor***
+ |
+| Textura | 18) Selección [Suave, viscosa] | 19) No selecciona valor
+***20) Otro valor*** |
+| Temperatura | 20) Grados celsius ≤50 y
+Grados celsius ≥ 30  | 21) !entero 
+22) Grados <30
+23) Grados >50
+24) Campo vacío 
+25) ***Otro valor*** |
+| Estado | 26) Encendida, en reposo y cargada con chocolate | 27) Máquina apagada
+28) Máquina encendida en estado ≠ reposo
+29) Máquina sin chocolate cargado |
+
+     Clases de equivalencia de salida
+
+| Condición externa | Clase de eq. válida | Clase de eq. inválida |
+| --- | --- | --- |
+| Inicio de templado | Mensaje de éxito “El templado finalizará el día DD/MM/AAAA a las HH:MM” | Mensaje de error “Usuario no loguead”
+Mensaje de error “Usuario no cuenta con los permisos necesarios”
+Mensaje de error “Fecha no válida”
+Mensaje de error “Hora no válida”
+Mensaje de error “Tiempo de enfriamiento no válido”
+Mensaje de error “Seleccione un aspecto válido”
+Mensaje de error “Seleccione una textura válida”
+Mensaje de error “Temperatura no válida”
+Mensaje de error “Estado no válido” |
+|  |  |  |
+
+    Casos de prueba:
