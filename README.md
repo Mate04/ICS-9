@@ -28,37 +28,22 @@
 
 ```php-template
 /ICS-9
-├── Readme.md
-├── Planificación Ingeniería y Calidad de Software.pdf
-├── Cronograma.xlsx
 ├── Bibliografía/
-│   └── <<Nombre del autor>> - <<Título del libro>>.pdf
 ├── Teorico/
 │   └── Unidad <<N>> <<Nombre_unidad>>/
-        ├── Contenido unidad.md
 │       ├── Filminas/
-│       │   └── <<N>> <<Título de la filmina>>.pdf
 │       ├── Notas de clase/
 │       │   └── <<Apellido creador>>/
-│       │       └── <<nombre del tema>> - <<DD-MM-YYYY>>.<<ext>>
 │       └── Resumenes/
-│           └── <<nombre del tema>> - <<Apellido creador>>.<<ext>>
 ├── Practico/
-│   ├── Guía Practicos Evaluables.pdf
-│   ├── Guía Practicos Resueltos.pdf
 │   ├── Trabajos practicos/
 │   │   └── <<Tipo de trabajo practico>>/
-│   │       └── <<Nombre de tema>> - tp <<Numero de TP>>.pdf
 │   └── Resoluciones de ejercicios/
 │       └── Resolucion de <<Nombre de ejercicio>>/
-│           └── Resolucion <<Tipo de resolucion>> - <<Apellido creador>>.<<ext>>
 ├── Parciales/
 │   └── Parcial <<Numero de parcial>>/
-│       ├── Parcial <<MM-YYYY>> <<curso>>.pdf
-│       └── Modelo parcial <<número modelo>>.pdf
 ├── Assets/
 │   └── <<Apellido creador>>/
-│       └── <<Nombre de la imagen>>.(png|jpg|jpeg)
 ```
 
 
@@ -74,7 +59,7 @@
 | Parcial              | `Modelo parcial <<número modelo>>.md`                  | `/Parciales`                                | 
 | Libro                | `<<Nombre del autor>> - <<Título del libro>>.pdf`      | `/Bibliografía`                             | 
 | Imágenes             | `<<Nombre de la imagen>>.(png\jpg\jpeg)`               | `/Assets/<<Apellido creador>>`             | 
-| Cronograma           | `Cronograma.xlsx`                                       | `/cronograma`                              |
+| Cronograma           | `Cronograma.xlsx`                                       | Raíz del proyecto `/`             |
 | Trabajo Práctico     | `<<Nombre de tema>> - tp <<Número de tp>>.pdf`         | `/Practico/Trabajos practicos/<<Tipo de trabajo practico>>/<<Nombre de tema>> - tp <<Numero de TP>>.pdf`    | 
 | Ejercicio Resuelto | `Resolucion <<Tipo de resolucion>> - <<<Apellido creador>>.<<ext>>` | `/Practico/Resolucion de Ejercicos/Resolucion de <<Nombre de ejercicio>>` |
 
