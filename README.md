@@ -28,22 +28,22 @@
 
 ```php-template
 /ICS-9
-├── Bibliografía/
-├── Teorico/
-│   └── Unidad <<N>> <<Nombre_unidad>>/
-│       ├── Filminas/
-│       ├── Notas de clase/
-│       │   └── <<Apellido creador>>/
-│       └── Resumenes/
-├── Practico/
-│   ├── Trabajos practicos/
-│   │   └── <<Tipo de trabajo practico>>/
-│   └── Resoluciones de ejercicios/
-│       └── Resolucion de <<Nombre de ejercicio>>/
-├── Parciales/
-│   └── Parcial <<Numero de parcial>>/
-├── Assets/
-│   └── <<Apellido creador>>/
+├── Bibliografía
+├── Teorico
+│   └── Unidad <<N>> <<Nombre_unidad>>
+│       ├── Filminas
+│       ├── Notas de clase
+│       │   └── <<Apellido creador>>
+│       └── Resumenes
+├── Practico
+│   ├── Trabajos practicos
+│   │   └── <<Tipo de trabajo practico>>
+│   └── Resoluciones de ejercicios
+│       └── Resolucion de <<Nombre de ejercicio>>
+├── Parciales
+│   └── Parcial <<Numero de parcial>>
+├── Assets
+│   └── <<Apellido creador>>
 ```
 
 
